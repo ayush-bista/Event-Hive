@@ -113,6 +113,20 @@ public class UserDAO {
         return list;
     }
 
+    public List<User> getPendingStudents() throws SQLException {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT u.*, sd.course, sd.level, sd.year " +
+                "FROM users u " +
+                "LEFT JOIN student_details sd ON u.user_id = sd.user_id " +
+                "WHERE u.role = 'student' AND u.is_approved = 0 ORDER BY u.created_at DESC";
+        try (Connection conn = DBConnection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) list.add(mapRow(rs));
+        }
+        return list;
+    }
+
     // ── Approve student ───────────────────────────────────────────────────────
     public boolean approveUser(int userId) throws SQLException {
         String sql = "UPDATE users SET is_approved = 1 WHERE user_id = ?";

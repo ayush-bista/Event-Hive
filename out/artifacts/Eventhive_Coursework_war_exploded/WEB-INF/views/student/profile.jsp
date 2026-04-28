@@ -14,7 +14,7 @@
     <%@ include file="../includes/sidebar.jsp" %>
     <div class="main-content">
         <div class="top-bar">
-            <div class="top-bar-title">&#128100; My Profile</div>
+            <div class="top-bar-title">My Profile</div>
             <div class="top-bar-actions">
                 <a href="${pageContext.request.contextPath}/logout" class="btn btn-outline btn-sm">Sign Out</a>
             </div>
@@ -22,10 +22,10 @@
 
         <div class="page-body">
             <c:if test="${not empty error}">
-                <div class="alert alert-error mb-16">&#9888; ${error}</div>
+                <div class="alert alert-error mb-16">! ${error}</div>
             </c:if>
             <c:if test="${not empty success}">
-                <div class="alert alert-success mb-16">&#10004; ${success}</div>
+                <div class="alert alert-success mb-16">OK ${success}</div>
             </c:if>
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">

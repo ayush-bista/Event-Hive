@@ -156,6 +156,22 @@ public class EventDAO {
         return list;
     }
 
+    public List<Event> getLatestEvents(int limit) throws SQLException {
+        List<Event> list = new ArrayList<>();
+        String sql = "SELECT e.*, ec.category_name, COUNT(en.enrollment_id) AS enrollment_count " +
+                "FROM events e " +
+                "LEFT JOIN event_categories ec ON e.category_id = ec.category_id " +
+                "LEFT JOIN enrollments en ON e.event_id = en.event_id AND en.status != 'cancelled' " +
+                "GROUP BY e.event_id ORDER BY e.created_at DESC, e.event_id DESC LIMIT ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        }
+        return list;
+    }
+
     // ── Private mapper ────────────────────────────────────────────────────────
     private Event mapRow(ResultSet rs) throws SQLException {
         Event e = new Event();

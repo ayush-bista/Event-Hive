@@ -26,7 +26,7 @@ public class StudentDashboardServlet extends HttpServlet {
             User user = (User) req.getSession().getAttribute("loggedInUser");
             req.setAttribute("upcomingEvents",  eventDAO.getAllEvents());
             req.setAttribute("myEnrollments",   enrollmentDAO.getEnrollmentsByUser(user.getUserId()));
-            req.setAttribute("popularEvents",   eventDAO.getPopularEvents(3));
+            req.setAttribute("popularEvents",   eventDAO.getLatestEvents(3));
         } catch (Exception e) {
             req.setAttribute("error", "Could not load dashboard.");
         }

@@ -15,7 +15,7 @@
     <div class="main-content">
 
         <div class="top-bar">
-            <div class="top-bar-title">&#127915; Browse Events</div>
+            <div class="top-bar-title">Browse Events</div>
             <div class="top-bar-actions">
                 <a href="${pageContext.request.contextPath}/logout" class="btn btn-outline btn-sm">Sign Out</a>
             </div>
@@ -28,13 +28,13 @@
                 String flashErr = (String) session.getAttribute("flashError");
                 if (flashOk  != null) { session.removeAttribute("flashSuccess"); }
                 if (flashErr != null) { session.removeAttribute("flashError"); } %>
-            <% if (flashOk  != null) { %><div class="alert alert-success mb-16">&#10004; <%= flashOk %></div><% } %>
-            <% if (flashErr != null) { %><div class="alert alert-error mb-16">&#9888; <%= flashErr %></div><% } %>
+            <% if (flashOk  != null) { %><div class="alert alert-success mb-16">OK <%= flashOk %></div><% } %>
+            <% if (flashErr != null) { %><div class="alert alert-error mb-16">! <%= flashErr %></div><% } %>
 
             <!-- Search & Filter -->
             <form method="get" action="${pageContext.request.contextPath}/student/events" class="search-bar">
                 <div class="search-input-wrap">
-                    <span class="search-icon">&#128269;</span>
+                    <span class="search-icon">Search</span>
                     <input type="text" name="keyword" class="form-control"
                            placeholder="Search events..." value="${keyword}">
                 </div>
@@ -54,7 +54,6 @@
             <c:choose>
                 <c:when test="${empty events}">
                     <div class="card text-center" style="padding:60px;">
-                        <div style="font-size:3rem; margin-bottom:12px;">&#127917;</div>
                         <h3 style="margin-bottom:8px;">No events found</h3>
                         <p class="text-muted">Try a different search or check back later.</p>
                     </div>
@@ -65,27 +64,27 @@
                             <div class="event-card">
                                 <div class="event-card-banner">
                                     <c:choose>
-                                        <c:when test="${ev.categoryName == 'Technical'}">&#128187;</c:when>
-                                        <c:when test="${ev.categoryName == 'Cultural'}">&#127917;</c:when>
-                                        <c:when test="${ev.categoryName == 'Sports'}">&#9917;</c:when>
-                                        <c:when test="${ev.categoryName == 'Academic'}">&#128218;</c:when>
-                                        <c:otherwise>&#127881;</c:otherwise>
+                                        <c:when test="${ev.categoryName == 'Technical'}">TECH</c:when>
+                                        <c:when test="${ev.categoryName == 'Cultural'}">CULT</c:when>
+                                        <c:when test="${ev.categoryName == 'Sports'}">SPRT</c:when>
+                                        <c:when test="${ev.categoryName == 'Academic'}">ACAD</c:when>
+                                        <c:otherwise>EVNT</c:otherwise>
                                     </c:choose>
                                 </div>
                                 <div class="event-card-body">
                                     <div class="event-card-category">${ev.categoryName}</div>
                                     <div class="event-card-title">${ev.title}</div>
                                     <div class="event-meta">
-                                        <span>&#128467; ${ev.eventDate}</span>
+                                        <span>Date: ${ev.eventDate}</span>
                                         <c:if test="${not empty ev.eventTime}">
-                                            <span>&#128336; ${ev.eventTime}</span>
+                                            <span>Time: ${ev.eventTime}</span>
                                         </c:if>
-                                        <span>&#128205; ${ev.venue}</span>
+                                        <span>Venue: ${ev.venue}</span>
                                         <c:if test="${ev.capacity > 0}">
-                                            <span>&#128186; ${ev.capacity - ev.enrollmentCount} seats left</span>
+                                            <span>${ev.capacity - ev.enrollmentCount} seats left</span>
                                         </c:if>
                                         <c:if test="${not empty ev.deadline}">
-                                            <span>&#9200; Deadline: ${ev.deadline}</span>
+                                            <span>Deadline: ${ev.deadline}</span>
                                         </c:if>
                                     </div>
                                     <div class="event-card-footer">

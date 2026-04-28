@@ -37,7 +37,7 @@ public class EnrollmentDAO {
     // ── Get all enrollments for a student ─────────────────────────────────────
     public List<Enrollment> getEnrollmentsByUser(int userId) throws SQLException {
         List<Enrollment> list = new ArrayList<>();
-        String sql = "SELECT en.*, e.title AS event_title, e.event_date " +
+        String sql = "SELECT en.*, e.title AS event_title, e.event_date, e.status AS event_status " +
                 "FROM enrollments en " +
                 "JOIN events e ON en.event_id = e.event_id " +
                 "WHERE en.user_id = ? ORDER BY en.enrolled_at DESC";
@@ -53,7 +53,7 @@ public class EnrollmentDAO {
     // ── Get all enrollments for an event (admin view) ────────────────────────
     public List<Enrollment> getEnrollmentsByEvent(int eventId) throws SQLException {
         List<Enrollment> list = new ArrayList<>();
-        String sql = "SELECT en.*, u.full_name AS student_name, e.title AS event_title, e.event_date " +
+        String sql = "SELECT en.*, u.full_name AS student_name, e.title AS event_title, e.event_date, e.status AS event_status " +
                 "FROM enrollments en " +
                 "JOIN users u  ON en.user_id  = u.user_id " +
                 "JOIN events e ON en.event_id = e.event_id " +
@@ -70,7 +70,7 @@ public class EnrollmentDAO {
     // ── Get all pending enrollments (admin) ────────────────────────────────
     public List<Enrollment> getAllPendingEnrollments() throws SQLException {
         List<Enrollment> list = new ArrayList<>();
-        String sql = "SELECT en.*, u.full_name AS student_name, e.title AS event_title, e.event_date " +
+        String sql = "SELECT en.*, u.full_name AS student_name, e.title AS event_title, e.event_date, e.status AS event_status " +
                 "FROM enrollments en " +
                 "JOIN users u  ON en.user_id  = u.user_id " +
                 "JOIN events e ON en.event_id = e.event_id " +
@@ -127,6 +127,7 @@ public class EnrollmentDAO {
         try { en.setStudentName(rs.getString("student_name")); } catch (SQLException ignored) {}
         try { en.setEventTitle(rs.getString("event_title")); }  catch (SQLException ignored) {}
         try { en.setEventDate(String.valueOf(rs.getDate("event_date"))); } catch (SQLException ignored) {}
+        try { en.setEventStatus(rs.getString("event_status")); } catch (SQLException ignored) {}
         return en;
     }
 }

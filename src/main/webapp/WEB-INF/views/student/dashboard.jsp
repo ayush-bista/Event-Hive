@@ -15,7 +15,7 @@
     <div class="main-content">
 
         <div class="top-bar">
-            <div class="top-bar-title">&#128075; Welcome, ${sessionScope.loggedInUser.fullName}</div>
+            <div class="top-bar-title">Welcome, ${sessionScope.loggedInUser.fullName}</div>
             <div class="top-bar-actions">
                 <a href="${pageContext.request.contextPath}/student/events" class="btn btn-primary btn-sm">Browse Events</a>
                 <a href="${pageContext.request.contextPath}/logout" class="btn btn-outline btn-sm">Sign Out</a>
@@ -29,23 +29,23 @@
                 String flashErr = (String) session.getAttribute("flashError");
                 if (flashOk  != null) { session.removeAttribute("flashSuccess"); }
                 if (flashErr != null) { session.removeAttribute("flashError"); } %>
-            <% if (flashOk  != null) { %><div class="alert alert-success mb-16">&#10004; <%= flashOk %></div><% } %>
-            <% if (flashErr != null) { %><div class="alert alert-error mb-16">&#9888; <%= flashErr %></div><% } %>
+            <% if (flashOk  != null) { %><div class="alert alert-success mb-16">OK <%= flashOk %></div><% } %>
+            <% if (flashErr != null) { %><div class="alert alert-error mb-16">! <%= flashErr %></div><% } %>
 
             <!-- Quick stats -->
             <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
                 <div class="stat-card violet">
-                    <div class="stat-icon">&#128467;</div>
+                    <div class="stat-icon">EV</div>
                     <div class="stat-value">${upcomingEvents.size()}</div>
                     <div class="stat-label">Events Available</div>
                 </div>
                 <div class="stat-card cyan">
-                    <div class="stat-icon">&#127915;</div>
+                    <div class="stat-icon">EN</div>
                     <div class="stat-value">${myEnrollments.size()}</div>
                     <div class="stat-label">My Enrollments</div>
                 </div>
                 <div class="stat-card green">
-                    <div class="stat-icon">&#10004;</div>
+                    <div class="stat-icon">OK</div>
                     <div class="stat-value">
                         <c:set var="approvedCount" value="0"/>
                         <c:forEach var="en" items="${myEnrollments}">
@@ -67,14 +67,14 @@
             <div class="table-wrap mb-24">
                 <table>
                     <thead>
-                    <tr><th>Event</th><th>Date</th><th>Enrolled On</th><th>Status</th><th>Action</th></tr>
+                    <tr><th>Event</th><th>Date</th><th>Enrolled On</th><th>Status</th><th>Event Status</th><th>Action</th></tr>
                     </thead>
                     <tbody>
                     <c:choose>
                         <c:when test="${empty myEnrollments}">
-                            <tr><td colspan="5" class="text-center text-muted" style="padding:32px;">
+                            <tr><td colspan="6" class="text-center text-muted" style="padding:32px;">
                                 You haven't enrolled in any events yet.
-                                <a href="${pageContext.request.contextPath}/student/events">Browse events &rarr;</a>
+                                <a href="${pageContext.request.contextPath}/student/events">Browse events</a>
                             </td></tr>
                         </c:when>
                         <c:otherwise>
@@ -89,6 +89,14 @@
                                             <c:when test="${en.status == 'pending'}"><span class="badge badge-amber">Pending</span></c:when>
                                             <c:when test="${en.status == 'rejected'}"><span class="badge badge-rose">Rejected</span></c:when>
                                             <c:otherwise><span class="badge badge-muted">Cancelled</span></c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${en.eventStatus == 'upcoming'}"><span class="badge badge-violet">Upcoming</span></c:when>
+                                            <c:when test="${en.eventStatus == 'ongoing'}"><span class="badge badge-green">Ongoing</span></c:when>
+                                            <c:when test="${en.eventStatus == 'completed'}"><span class="badge badge-muted">Completed</span></c:when>
+                                            <c:otherwise><span class="badge badge-rose">Cancelled</span></c:otherwise>
                                         </c:choose>
                                     </td>
                                     <td>
@@ -109,9 +117,9 @@
                 </table>
             </div>
 
-            <!-- Popular Events -->
+            <!-- Latest Events -->
             <div class="section-header">
-                <span class="section-title">&#128293; Trending Events &#128293;</span>
+                <span class="section-title">Latest Events</span>
                 <a href="${pageContext.request.contextPath}/student/events" class="btn btn-outline btn-sm">See All</a>
             </div>
             <div class="events-grid">
@@ -119,20 +127,20 @@
                     <div class="event-card">
                         <div class="event-card-banner">
                             <c:choose>
-                                <c:when test="${ev.categoryName == 'Technical'}">&#128187;</c:when>
-                                <c:when test="${ev.categoryName == 'Cultural'}">&#127917;</c:when>
-                                <c:when test="${ev.categoryName == 'Sports'}">&#9917;</c:when>
-                                <c:when test="${ev.categoryName == 'Academic'}">&#128218;</c:when>
-                                <c:otherwise>&#127881;</c:otherwise>
+                                <c:when test="${ev.categoryName == 'Technical'}">TECH</c:when>
+                                <c:when test="${ev.categoryName == 'Cultural'}">CULT</c:when>
+                                <c:when test="${ev.categoryName == 'Sports'}">SPRT</c:when>
+                                <c:when test="${ev.categoryName == 'Academic'}">ACAD</c:when>
+                                <c:otherwise>EVNT</c:otherwise>
                             </c:choose>
                         </div>
                         <div class="event-card-body">
                             <div class="event-card-category">${ev.categoryName}</div>
                             <div class="event-card-title">${ev.title}</div>
                             <div class="event-meta">
-                                <span>&#128467; ${ev.eventDate}</span>
-                                <span>&#128205; ${ev.venue}</span>
-                                <span>&#128101; ${ev.enrollmentCount} enrolled</span>
+                                <span>Date: ${ev.eventDate}</span>
+                                <span>Venue: ${ev.venue}</span>
+                                <span>${ev.enrollmentCount} enrolled</span>
                             </div>
                             <div class="event-card-footer">
                                 <c:choose>

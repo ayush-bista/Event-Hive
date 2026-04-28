@@ -25,10 +25,10 @@
 
     <div class="page-body">
       <c:if test="${param.msg == 'saved'}">
-        <div class="alert alert-success mb-16">&#10004; Event saved successfully.</div>
+        <div class="alert alert-success mb-16">OK Event saved successfully.</div>
       </c:if>
       <c:if test="${param.msg == 'deleted'}">
-        <div class="alert alert-info mb-16">&#128465; Event deleted.</div>
+        <div class="alert alert-info mb-16">Info Event deleted.</div>
       </c:if>
 
       <div class="table-wrap">
@@ -50,7 +50,7 @@
             <c:when test="${empty events}">
               <tr>
                 <td colspan="8" class="text-center text-muted" style="padding:40px;">
-                  No events yet. <a href="${pageContext.request.contextPath}/admin/events?action=add">Create one &rarr;</a>
+                  No events yet. <a href="${pageContext.request.contextPath}/admin/events?action=add">Create one</a>
                 </td>
               </tr>
             </c:when>
@@ -74,12 +74,12 @@
                   <td>
                     <div class="d-flex gap-8">
                       <a href="${pageContext.request.contextPath}/admin/events?action=participants&id=${ev.eventId}"
-                         class="btn btn-outline btn-sm">&#128101;</a>
+                         class="btn btn-outline btn-sm">View</a>
                       <a href="${pageContext.request.contextPath}/admin/events?action=edit&id=${ev.eventId}"
-                         class="btn btn-outline btn-sm">&#9998;</a>
+                         class="btn btn-outline btn-sm">Edit</a>
                       <a href="${pageContext.request.contextPath}/admin/events?action=delete&id=${ev.eventId}"
                          class="btn btn-danger btn-sm"
-                         onclick="return confirm('Delete this event?')">&#128465;</a>
+                         onclick="return confirm('Delete this event?')">Delete</a>
                     </div>
                   </td>
                 </tr>

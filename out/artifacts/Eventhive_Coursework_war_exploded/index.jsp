@@ -541,7 +541,7 @@
 
             <%--            <div class="float-tag float-tag-a">--%>
             <%--                <div class="float-tag-inner">--%>
-            <%--                    <div class="float-tag-icon" aria-hidden="true">&#127979;</div>--%>
+            <%--                    <div class="float-tag-icon" aria-hidden="true">IIC</div>--%>
             <%--                    <div class="float-tag-content">--%>
             <%--                        <div class="tag-lbl">Next Event</div>--%>
             <%--                        <div class="tag-val">--%>
@@ -553,10 +553,10 @@
             <%--            </div>--%>
             <div class="float-tag float-tag-b">
                 <div class="float-tag-inner">
-                    <div class="float-tag-icon" aria-hidden="true">&#127915;</div>
+                    <div class="float-tag-icon" aria-hidden="true">EV</div>
                     <div class="float-tag-content">
                         <div class="tag-lbl">Registrations Open</div>
-                        <div class="tag-val">&#127915; 4 Live Events</div>
+                        <div class="tag-val">4 Live Events</div>
                     </div>
                 </div>
             </div>
@@ -591,32 +591,32 @@
 
         <div class="feat-grid">
             <div class="feat-card reveal">
-                <div class="feat-icon fi-v">&#127915;</div>
+                <div class="feat-icon fi-v">EV</div>
                 <div class="feat-title">Browse &amp; Enroll</div>
                 <div class="feat-desc">Discover upcoming events, filter by Academic, Cultural, Sports, or Technical categories and apply instantly.</div>
             </div>
             <div class="feat-card reveal">
-                <div class="feat-icon fi-g">&#128274;</div>
+                <div class="feat-icon fi-g">SEC</div>
                 <div class="feat-title">Secure &amp; Role-Based</div>
                 <div class="feat-desc">SHA-256 encrypted passwords, session management, and completely separate dashboards for admins and students.</div>
             </div>
             <div class="feat-card reveal">
-                <div class="feat-icon fi-c">&#128202;</div>
+                <div class="feat-icon fi-c">DB</div>
                 <div class="feat-title">Admin Dashboard</div>
                 <div class="feat-desc">Full event management, student approvals, participant lists, and live enrollment analytics in one place.</div>
             </div>
             <div class="feat-card reveal">
-                <div class="feat-icon fi-v">&#128269;</div>
+                <div class="feat-icon fi-v">SR</div>
                 <div class="feat-title">Smart Search</div>
                 <div class="feat-desc">Find events instantly with keyword search and category filters. Never miss what matters to you.</div>
             </div>
             <div class="feat-card reveal">
-                <div class="feat-icon fi-g">&#128100;</div>
+                <div class="feat-icon fi-g">PR</div>
                 <div class="feat-title">Student Profiles</div>
                 <div class="feat-desc">Track your enrolled events, manage personal information, and update your password from your profile.</div>
             </div>
             <div class="feat-card reveal">
-                <div class="feat-icon fi-c">&#128241;</div>
+                <div class="feat-icon fi-c">MB</div>
                 <div class="feat-title">Fully Responsive</div>
                 <div class="feat-desc">Works perfectly on every device: desktop, tablet, or phone. No app download required.</div>
             </div>
@@ -638,7 +638,7 @@
                      alt="IIC Main Building"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
                 <div class="gal-placeholder" style="display:none; background:linear-gradient(135deg,#EEF2FF,#6C4FF644);">
-                    <div class="gp-icon">&#127979;</div><div class="gp-text">Main Building</div>
+                    <div class="gp-icon">IIC</div><div class="gp-text">Main Building</div>
                 </div>
                 <div class="gal-label">IIC Main Campus</div>
             </div>
@@ -647,7 +647,7 @@
                      alt="Annual Tech Fest"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
                 <div class="gal-placeholder" style="display:none; background:linear-gradient(135deg,#EEF2FF,#6C4FF644);">
-                    <div class="gp-icon">&#128187;</div><div class="gp-text">Tech Fest</div>
+                    <div class="gp-icon">TECH</div><div class="gp-text">Tech Fest</div>
                 </div>
                 <div class="gal-label">Annual Tech Fest</div>
             </div>
@@ -656,7 +656,7 @@
                      alt="Cultural Night"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
                 <div class="gal-placeholder" style="display:none; background:linear-gradient(135deg,#EEF2FF,#E8B84B44);">
-                    <div class="gp-icon">&#127917;</div><div class="gp-text">Cultural Night</div>
+                    <div class="gp-icon">CULT</div><div class="gp-text">Cultural Night</div>
                 </div>
                 <div class="gal-label">Cultural Night</div>
             </div>
@@ -665,7 +665,7 @@
                      alt="Inter-College Sports"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
                 <div class="gal-placeholder" style="display:none; background:linear-gradient(135deg,#EEF2FF,#10B98144);">
-                    <div class="gp-icon">&#9917;</div><div class="gp-text">Sports Day</div>
+                    <div class="gp-icon">SPRT</div><div class="gp-text">Sports Day</div>
                 </div>
                 <div class="gal-label">Inter-College Sports</div>
             </div>
@@ -674,7 +674,7 @@
                      alt="Academic Seminar"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
                 <div class="gal-placeholder" style="display:none; background:linear-gradient(135deg,#EEF2FF,#22D3EE33);">
-                    <div class="gp-icon">&#128218;</div><div class="gp-text">Research Seminar</div>
+                    <div class="gp-icon">ACAD</div><div class="gp-text">Research Seminar</div>
                 </div>
                 <div class="gal-label">Academic Seminar</div>
             </div>
@@ -683,7 +683,7 @@
                      alt="Graduation Ceremony"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
                 <div class="gal-placeholder" style="display:none; background:linear-gradient(135deg,#EEF2FF,#F43F5E33);">
-                    <div class="gp-icon">&#127891;</div><div class="gp-text">Graduation</div>
+                    <div class="gp-icon">GRAD</div><div class="gp-text">Graduation</div>
                 </div>
                 <div class="gal-label">Graduation Ceremony</div>
             </div>
@@ -695,7 +695,7 @@
                      alt="IIC Main Building"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
                 <div class="gal-placeholder" style="display:none; background:linear-gradient(135deg,#EEF2FF,#6C4FF644);">
-                    <div class="gp-icon">&#127979;</div><div class="gp-text">Main Building</div>
+                    <div class="gp-icon">IIC</div><div class="gp-text">Main Building</div>
                 </div>
                 <div class="gal-label">IIC Main Campus</div>
             </div>
@@ -703,35 +703,35 @@
                 <img src="https://futurama.ingskill.com/images/homepage.PNG"
                      alt="Annual Tech Fest"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
-                <div class="gal-placeholder" style="display:none;"><div class="gp-icon">&#128187;</div><div class="gp-text">Tech Fest</div></div>
+                <div class="gal-placeholder" style="display:none;"><div class="gp-icon">TECH</div><div class="gp-text">Tech Fest</div></div>
                 <div class="gal-label">Annual Tech Fest</div>
             </div>
             <div class="gal-item" style="background:linear-gradient(135deg,#EEF2FF,#E8B84B44);">
                 <img src="https://iic.edu.np/image/life-at-iic/banner.jpg"
                      alt="Cultural Night"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
-                <div class="gal-placeholder" style="display:none;"><div class="gp-icon">&#127917;</div><div class="gp-text">Cultural Night</div></div>
+                <div class="gal-placeholder" style="display:none;"><div class="gp-icon">CULT</div><div class="gp-text">Cultural Night</div></div>
                 <div class="gal-label">Cultural Night</div>
             </div>
             <div class="gal-item" style="background:linear-gradient(135deg,#EEF2FF,#10B98144);">
                 <img src="https://iic.edu.np/storage/lifeAtIic/4-banner_image.webp"
                      alt="Inter-College Sports"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
-                <div class="gal-placeholder" style="display:none;"><div class="gp-icon">&#9917;</div><div class="gp-text">Sports Day</div></div>
+                <div class="gal-placeholder" style="display:none;"><div class="gp-icon">SPRT</div><div class="gp-text">Sports Day</div></div>
                 <div class="gal-label">Inter-College Sports</div>
             </div>
             <div class="gal-item" style="background:linear-gradient(135deg,#EEF2FF,#22D3EE33);">
                 <img src="https://islington.edu.np/images/blog-images/international_exposure/five.jpg"
                      alt="Academic Seminar"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
-                <div class="gal-placeholder" style="display:none;"><div class="gp-icon">&#128218;</div><div class="gp-text">Research Seminar</div></div>
+                <div class="gal-placeholder" style="display:none;"><div class="gp-icon">ACAD</div><div class="gp-text">Research Seminar</div></div>
                 <div class="gal-label">Academic Seminar</div>
             </div>
             <div class="gal-item" style="background:linear-gradient(135deg,#EEF2FF,#F43F5E33);">
                 <img src="https://iic.edu.np/storage/post/IIC%20Graduation%202024%20(1200%20x%20400px)_1740396861.png"
                      alt="Graduation Ceremony"
                      onerror="this.style.display='none'; this.parentElement.querySelector('.gal-placeholder').style.display='flex';">
-                <div class="gal-placeholder" style="display:none;"><div class="gp-icon">&#127891;</div><div class="gp-text">Graduation</div></div>
+                <div class="gal-placeholder" style="display:none;"><div class="gp-icon">GRAD</div><div class="gp-text">Graduation</div></div>
                 <div class="gal-label">Graduation Ceremony</div>
             </div>
         </div>
@@ -776,7 +776,7 @@
     <p class="cta-d">Register now and never miss a campus event at Itahari International College.</p>
     <div class="cta-b">
         <a href="${pageContext.request.contextPath}/register" class="btn-big-primary">
-            Create Free Account <span class="arr">&rarr;</span>
+            Create Free Account
         </a>
         <a href="${pageContext.request.contextPath}/login" class="btn-big-ghost">
             Already have an account? Sign In

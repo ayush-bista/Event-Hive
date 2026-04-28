@@ -12,7 +12,7 @@
 <div class="auth-page">
   <div style="text-align:center; position:relative; z-index:1;">
     <div style="font-size:5rem; margin-bottom:16px;">
-      <%= "403".equals(request.getParameter("code")) ? "&#128683;" : "&#9888;" %>
+      <%= "403".equals(request.getParameter("code")) ? "403" : "!" %>
     </div>
     <h1 class="hero-title" style="font-size:2rem; margin-bottom:12px;">
       <%= "403".equals(request.getParameter("code")) ? "Access Denied" : "Something went wrong" %>

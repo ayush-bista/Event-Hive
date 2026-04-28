@@ -30,6 +30,7 @@ public class AdminDashboardServlet extends HttpServlet {
             req.setAttribute("totalEnrollments",  enrollmentDAO.countTotalEnrollments());
             req.setAttribute("popularEvents",     eventDAO.getPopularEvents(5));
             req.setAttribute("pendingEnrollments", enrollmentDAO.getAllPendingEnrollments());
+            req.setAttribute("studentRequests",   userDAO.getPendingStudents());
         } catch (Exception e) {
             req.setAttribute("error", "Could not load dashboard data.");
         }

@@ -15,7 +15,7 @@
   <div class="main-content">
 
     <div class="top-bar">
-      <div class="top-bar-title">&#128101; Manage Students</div>
+      <div class="top-bar-title">Manage Students</div>
       <div class="top-bar-actions">
         <a href="${pageContext.request.contextPath}/logout" class="btn btn-outline btn-sm">Sign Out</a>
       </div>

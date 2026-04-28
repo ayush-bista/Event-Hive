@@ -17,6 +17,7 @@ public class Enrollment {
     private String studentName;
     private String eventTitle;
     private String eventDate;
+    private String eventStatus;
 
     public Enrollment() {}
 
@@ -43,4 +44,7 @@ public class Enrollment {
 
     public String getEventDate()               { return eventDate; }
     public void setEventDate(String date)       { this.eventDate = date; }
+
+    public String getEventStatus()             { return eventStatus; }
+    public void setEventStatus(String status)   { this.eventStatus = status; }
 }

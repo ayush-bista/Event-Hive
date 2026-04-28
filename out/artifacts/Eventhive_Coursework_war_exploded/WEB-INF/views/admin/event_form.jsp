@@ -15,10 +15,10 @@
   <div class="main-content">
 
     <div class="top-bar">
-      <div class="top-bar-title">${empty event ? '&#10133; Add New Event' : '&#9998; Edit Event'}</div>
+      <div class="top-bar-title">${empty event ? 'Add New Event' : 'Edit Event'}</div>
       <div class="top-bar-actions">
         <a href="${pageContext.request.contextPath}/admin/events?action=list"
-           class="btn btn-outline btn-sm">&larr; Back</a>
+           class="btn btn-outline btn-sm">Back</a>
       </div>
     </div>
 
@@ -26,7 +26,7 @@
       <div class="card" style="max-width:700px;">
 
         <c:if test="${not empty error}">
-          <div class="alert alert-error mb-16">&#9888; ${error}</div>
+          <div class="alert alert-error mb-16">! ${error}</div>
         </c:if>
 
         <form method="post" action="${pageContext.request.contextPath}/admin/events">
