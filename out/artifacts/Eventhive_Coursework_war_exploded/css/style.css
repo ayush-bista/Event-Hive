@@ -231,34 +231,66 @@ a {
 
 .sidebar {
   border-right: 1px solid var(--border);
-  background: rgba(8, 13, 24, 0.9);
-  padding: 20px 14px;
+  background: linear-gradient(180deg, rgba(8, 13, 24, 0.98), rgba(12, 18, 32, 0.95));
+  padding: 22px 14px;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-logo {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
+  padding: 0 8px 18px;
+  border-bottom: 1px solid var(--border);
 }
 
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
+  flex: 1;
 }
 
 .nav-section-label {
-  margin-top: 10px;
-  color: var(--text-muted);
+  margin: 18px 8px 7px;
+  color: var(--cyan);
   text-transform: uppercase;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-section-label::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.45), transparent);
 }
 
 .nav-link {
   border: 1px solid transparent;
   border-radius: 10px;
   text-decoration: none;
-  padding: 9px 10px;
+  padding: 10px 12px 10px 16px;
   color: #cfd6e1;
+  font-size: 0.9rem;
+  position: relative;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 3px;
+  height: 0;
+  border-radius: 999px;
+  background: var(--violet-lt);
+  transform: translateY(-50%);
+  transition: height 0.15s ease;
 }
 
 .nav-link:hover,
@@ -268,14 +300,20 @@ a {
   color: #fff;
 }
 
+.nav-link:hover::before,
+.nav-link.active::before {
+  height: 18px;
+}
+
 .sidebar-user {
-  margin-top: 18px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .user-avatar {
@@ -407,46 +445,88 @@ td {
   border: 1px solid var(--border);
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
 }
 
 .event-card-banner {
-  height: 90px;
+  height: 190px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   background: linear-gradient(135deg, rgba(108, 79, 246, 0.2), rgba(34, 211, 238, 0.15));
 }
 
+.event-card-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .event-card-body {
-  padding: 12px;
+  padding: 14px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .event-card-category {
   color: var(--text-muted);
   font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
 }
 
 .event-card-title {
   font-weight: 700;
-  margin: 5px 0;
+  margin: 7px 0 4px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.event-card-description {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  margin: 2px 0 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .event-meta {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   color: #d1d5db;
   font-size: 0.82rem;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  min-width: 0;
+}
+
+.event-meta span {
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .event-card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: auto;
 }
 
 .search-bar {
@@ -463,14 +543,18 @@ td {
 
 .search-icon {
   position: absolute;
-  left: 10px;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0.8;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  opacity: 0.9;
+  pointer-events: none;
 }
 
 .search-input-wrap .form-control {
-  padding-left: 34px;
+  padding-left: 68px;
 }
 
 .d-flex { display: flex; }
@@ -502,6 +586,7 @@ td {
   .sidebar {
     border-right: 0;
     border-bottom: 1px solid var(--border);
+    display: block;
   }
 }
 

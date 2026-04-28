@@ -101,7 +101,7 @@ public class EventDAO {
     // ── Update event ──────────────────────────────────────────────────────────
     public boolean updateEvent(Event event) throws SQLException {
         String sql = "UPDATE events SET title=?, description=?, category_id=?, venue=?, " +
-                "event_date=?, event_time=?, deadline=?, capacity=?, status=? WHERE event_id=?";
+                "event_date=?, event_time=?, deadline=?, capacity=?, banner_image=?, status=? WHERE event_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, event.getTitle());
@@ -112,8 +112,9 @@ public class EventDAO {
             ps.setTime(6,   event.getEventTime());
             ps.setDate(7,   event.getDeadline());
             ps.setInt(8,    event.getCapacity());
-            ps.setString(9, event.getStatus());
-            ps.setInt(10,   event.getEventId());
+            ps.setString(9, event.getBannerImage());
+            ps.setString(10, event.getStatus());
+            ps.setInt(11,   event.getEventId());
             return ps.executeUpdate() > 0;
         }
     }

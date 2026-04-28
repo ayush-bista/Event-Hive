@@ -3,6 +3,7 @@ package controller.admin;
 import dao.EventDAO;
 import dao.EnrollmentDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import model.Event;
@@ -10,6 +11,8 @@ import model.User;
 import util.ValidationUtil;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -17,6 +20,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
+import java.util.UUID;
 
 /**
  * EventManagementServlet - Admin CRUD for events.
@@ -30,6 +34,11 @@ import java.util.Locale;
  *   POST ?action=updateEnrollment → approve/reject enrollment
  */
 @WebServlet("/admin/events")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 5 * 1024 * 1024,
+        maxRequestSize = 6 * 1024 * 1024
+)
 public class EventManagementServlet extends HttpServlet {
 
     private final EventDAO      eventDAO      = new EventDAO();
@@ -110,6 +119,7 @@ public class EventManagementServlet extends HttpServlet {
         String deadStr  = req.getParameter("deadline");
         String capStr   = req.getParameter("capacity");
         String status   = req.getParameter("status");
+        String existingBanner = ValidationUtil.sanitize(req.getParameter("existingBannerImage"));
 
         if (!ValidationUtil.isNotEmpty(title) || !ValidationUtil.isNotEmpty(venue)) {
             req.setAttribute("error", "Title and venue are required.");
@@ -132,6 +142,10 @@ public class EventManagementServlet extends HttpServlet {
             event.setEventTime(parseTimeFlexible(timeStr));
             event.setDeadline(parseDateFlexible(deadStr));
             event.setCapacity(capStr != null && !capStr.isEmpty() ? Integer.parseInt(capStr) : 0);
+            String bannerImage = saveBannerImage(req);
+            event.setBannerImage(ValidationUtil.isNotEmpty(bannerImage)
+                    ? bannerImage
+                    : (ValidationUtil.isNotEmpty(existingBanner) ? existingBanner : "default_event.png"));
             event.setStatus(status != null ? status : "upcoming");
 
             if (isEdit) {
@@ -139,7 +153,6 @@ public class EventManagementServlet extends HttpServlet {
             } else {
                 User admin = (User) req.getSession().getAttribute("loggedInUser");
                 event.setCreatedBy(admin.getUserId());
-                event.setBannerImage("default_event.png");
                 eventDAO.createEvent(event);
             }
             res.sendRedirect(req.getContextPath() + "/admin/events?action=list&msg=saved");
@@ -148,6 +161,38 @@ public class EventManagementServlet extends HttpServlet {
             req.setAttribute("error", "Could not save event: " + e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/admin/event_form.jsp").forward(req, res);
         }
+    }
+
+    private String saveBannerImage(HttpServletRequest req) throws IOException, ServletException {
+        Part filePart = req.getPart("bannerImage");
+        if (filePart == null || filePart.getSize() == 0) {
+            return null;
+        }
+
+        String submittedName = Path.of(filePart.getSubmittedFileName()).getFileName().toString();
+        String lowerName = submittedName.toLowerCase(Locale.ENGLISH);
+        String extension;
+        if (lowerName.endsWith(".jpg") || lowerName.endsWith(".jpeg")) {
+            extension = ".jpg";
+        } else if (lowerName.endsWith(".png")) {
+            extension = ".png";
+        } else if (lowerName.endsWith(".webp")) {
+            extension = ".webp";
+        } else {
+            throw new IllegalArgumentException("Cover image must be JPG, PNG, or WEBP.");
+        }
+
+        String uploadDirPath = getServletContext().getRealPath("/uploads/events");
+        if (uploadDirPath == null) {
+            throw new IOException("Upload directory is not available.");
+        }
+
+        Path uploadDir = Path.of(uploadDirPath);
+        Files.createDirectories(uploadDir);
+
+        String fileName = UUID.randomUUID() + extension;
+        filePart.write(uploadDir.resolve(fileName).toString());
+        return fileName;
     }
 
     private Date parseDateFlexible(String raw) {

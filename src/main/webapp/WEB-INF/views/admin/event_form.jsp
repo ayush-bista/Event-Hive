@@ -29,10 +29,11 @@
           <div class="alert alert-error mb-16">! ${error}</div>
         </c:if>
 
-        <form method="post" action="${pageContext.request.contextPath}/admin/events">
+        <form method="post" action="${pageContext.request.contextPath}/admin/events" enctype="multipart/form-data">
           <input type="hidden" name="action" value="save">
           <c:if test="${not empty event}">
             <input type="hidden" name="eventId" value="${event.eventId}">
+            <input type="hidden" name="existingBannerImage" value="${event.bannerImage}">
           </c:if>
 
           <div class="form-group">
@@ -45,6 +46,14 @@
             <label class="form-label">Description</label>
             <textarea name="description" class="form-control"
                       placeholder="Describe the event...">${event.description}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Cover Image</label>
+            <input type="file" name="bannerImage" class="form-control" accept="image/png,image/jpeg,image/webp">
+            <c:if test="${not empty event.bannerImage && event.bannerImage != 'default_event.png'}">
+              <p class="text-sm text-muted mt-16">Current image: ${event.bannerImage}</p>
+            </c:if>
           </div>
 
           <div class="form-row">

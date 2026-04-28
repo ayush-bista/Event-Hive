@@ -64,16 +64,29 @@
                             <div class="event-card">
                                 <div class="event-card-banner">
                                     <c:choose>
-                                        <c:when test="${ev.categoryName == 'Technical'}">TECH</c:when>
-                                        <c:when test="${ev.categoryName == 'Cultural'}">CULT</c:when>
-                                        <c:when test="${ev.categoryName == 'Sports'}">SPRT</c:when>
-                                        <c:when test="${ev.categoryName == 'Academic'}">ACAD</c:when>
-                                        <c:otherwise>EVNT</c:otherwise>
+                                        <c:when test="${not empty ev.bannerImage && ev.bannerImage != 'default_event.png'}">
+                                            <img src="${pageContext.request.contextPath}/uploads/events/${ev.bannerImage}"
+                                                 alt="${ev.title} cover">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span>
+                                                <c:choose>
+                                                    <c:when test="${ev.categoryName == 'Technical'}">TECH</c:when>
+                                                    <c:when test="${ev.categoryName == 'Cultural'}">CULT</c:when>
+                                                    <c:when test="${ev.categoryName == 'Sports'}">SPRT</c:when>
+                                                    <c:when test="${ev.categoryName == 'Academic'}">ACAD</c:when>
+                                                    <c:otherwise>EVNT</c:otherwise>
+                                                </c:choose>
+                                            </span>
+                                        </c:otherwise>
                                     </c:choose>
                                 </div>
                                 <div class="event-card-body">
                                     <div class="event-card-category">${ev.categoryName}</div>
                                     <div class="event-card-title">${ev.title}</div>
+                                    <c:if test="${not empty ev.description}">
+                                        <div class="event-card-description">${ev.description}</div>
+                                    </c:if>
                                     <div class="event-meta">
                                         <span>Date: ${ev.eventDate}</span>
                                         <c:if test="${not empty ev.eventTime}">
