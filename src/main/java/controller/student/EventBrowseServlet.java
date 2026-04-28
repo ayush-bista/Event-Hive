@@ -1,9 +1,12 @@
 package controller.student;
 
+import dao.EnrollmentDAO;
 import dao.EventDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import model.Event;
+import model.User;
 
 import java.io.IOException;
 
@@ -14,7 +17,8 @@ import java.io.IOException;
 @WebServlet("/student/events")
 public class EventBrowseServlet extends HttpServlet {
 
-    private final EventDAO eventDAO = new EventDAO();
+    private final EventDAO      eventDAO      = new EventDAO();
+    private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -30,6 +34,6 @@ public class EventBrowseServlet extends HttpServlet {
         } catch (Exception e) {
             req.setAttribute("error", "Could not load events.");
         }
-        req.getRequestDispatcher("/WEB-INF/view/student/events.jsp").forward(req, res);
+        req.getRequestDispatcher("/WEB-INF/views/student/events.jsp").forward(req, res);
     }
 }

@@ -23,7 +23,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(req, res);
+        req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req, res);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class RegisterServlet extends HttpServlet {
                 userDAO.insertStudentDetails(user);
                 req.setAttribute("success",
                         "Registration successful! Please wait for admin approval before logging in.");
-                req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, res);
+                req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, res);
             } else {
                 setErrorAndForward(req, res, "Registration failed. Please try again.");
             }
@@ -104,6 +104,6 @@ public class RegisterServlet extends HttpServlet {
     private void setErrorAndForward(HttpServletRequest req, HttpServletResponse res, String msg)
             throws ServletException, IOException {
         req.setAttribute("error", msg);
-        req.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(req, res);
+        req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req, res);
     }
 }

@@ -1,97 +1,463 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-
-<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/favicon.png">
-<title>My Profile &mdash; Event Hive</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-</head>
-<body>
-<div class="page-wrapper">
-<%@ include file="../includes/sidebar.jsp" %>
-<div class="main-content">
-<div class="top-bar">
-<div class="top-bar-title">&#128100; My Profile</div>
-<div class="top-bar-actions">
-<a href="${pageContext.request.contextPath}/logout" class="btn btn-outline btn-sm">Sign Out</a>
-</div>
-</div>
-
-<div class="page-body">
-<c:if test="${not empty error}">
-<div class="alert alert-error mb-16">&#9888; ${error}</div>
-</c:if>
-<c:if test="${not empty success}">
-<div class="alert alert-success mb-16">&#10004; ${success}</div>
-</c:if>
-
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
-
-<!-- Update Profile -->
-<div class="card">
-<h3 style="font-size:1rem; margin-bottom:20px;">Personal Information</h3>
-<form method="post" action="${pageContext.request.contextPath}/student/profile">
-<input type="hidden" name="action" value="updateProfile">
-<div class="form-group">
-<label class="form-label">Full Name</label>
-<input type="text" name="fullName" class="form-control"
-value="${sessionScope.loggedInUser.fullName}" required>
-</div>
-<div class="form-group">
-<label class="form-label">Email <span class="text-muted">(read only)</span></label>
-<input type="email" class="form-control"
-value="${sessionScope.loggedInUser.email}" readonly
-                                           style="opacity:0.5; cursor:not-allowed;">
-</div>
-<div class="form-group">
-<label class="form-label">Phone</label>
-<input type="text" name="phone" class="form-control"
-value="${sessionScope.loggedInUser.phone}" maxlength="10">
-</div>
-<div class="form-group">
-<label class="form-label">Date of Birth</label>
-<input type="date" name="dateOfBirth" class="form-control"
-value="${sessionScope.loggedInUser.dateOfBirth}">
-</div>
-<button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
-</div>
-
-<!-- Change Password -->
-<div class="card">
-<h3 style="font-size:1rem; margin-bottom:20px;">Change Password</h3>
-<form method="post" action="${pageContext.request.contextPath}/student/profile">
-<input type="hidden" name="action" value="changePassword">
-<div class="form-group">
-<label class="form-label">Current Password</label>
-<input type="password" name="currentPassword" class="form-control"
-placeholder="Enter current password" required>
-</div>
-<div class="form-group">
-<label class="form-label">New Password</label>
-<input type="password" name="newPassword" class="form-control"
-placeholder="Min 8 chars, 1 upper, 1 digit, 1 special" required>
-</div>
-<div class="form-group">
-<label class="form-label">Confirm New Password</label>
-<input type="password" name="confirmPassword" class="form-control"
-placeholder="Repeat new password" required>
-</div>
-<button type="submit" class="btn btn-primary">Update Password</button>
-</form>
-</div>
-
-</div>
-</div>
-</div>
-</div>
-<style>
-@media (max-width: 700px) {
-    .page-body > div { grid-template-columns: 1fr !important; }
+:root {
+  --bg: #0b1220;
+  --bg-soft: #111a2e;
+  --panel: #11192b;
+  --panel-2: #0f1726;
+  --text: #e5e7eb;
+  --text-muted: #9ca3af;
+  --border: rgba(255, 255, 255, 0.12);
+  --violet: #6c4ff6;
+  --violet-lt: #8b72fb;
+  --cyan: #22d3ee;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --rose: #f43f5e;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
-</style>
-</body>
-</html>
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background: radial-gradient(1200px 600px at 10% -10%, #1f2b48 0%, var(--bg) 50%);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+.auth-logo {
+  margin-bottom: 18px;
+}
+
+.logo-text {
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+.logo-tagline,
+.logo-sub {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.auth-title {
+  margin: 0 0 8px;
+  font-size: 1.55rem;
+}
+
+.auth-subtitle {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+
+.form-control {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: var(--violet-lt);
+  box-shadow: 0 0 0 3px rgba(139, 114, 251, 0.2);
+}
+
+.btn {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 0.86rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--violet), #4d32d6);
+  color: #fff;
+}
+
+.btn-outline {
+  border-color: var(--border);
+  color: var(--text);
+  background: transparent;
+}
+
+.btn-success {
+  background: var(--green);
+  color: #fff;
+}
+
+.btn-danger {
+  background: var(--rose);
+  color: #fff;
+}
+
+.btn-sm {
+  padding: 7px 10px;
+  font-size: 0.78rem;
+}
+
+.btn-lg {
+  padding: 11px 14px;
+}
+
+.alert {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  margin-bottom: 12px;
+}
+
+.alert-error {
+  background: rgba(244, 63, 94, 0.15);
+  border-color: rgba(244, 63, 94, 0.35);
+}
+
+.alert-success {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+}
+
+.sidebar {
+  border-right: 1px solid var(--border);
+  background: rgba(8, 13, 24, 0.9);
+  padding: 20px 14px;
+}
+
+.sidebar-logo {
+  margin-bottom: 20px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-section-label {
+  margin-top: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.nav-link {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  text-decoration: none;
+  padding: 9px 10px;
+  color: #cfd6e1;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(108, 79, 246, 0.18);
+  border-color: rgba(108, 79, 246, 0.4);
+  color: #fff;
+}
+
+.sidebar-user {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--violet);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.user-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.user-role {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.main-content {
+  padding: 18px;
+}
+
+.top-bar {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.top-bar-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.top-bar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.page-body {
+  margin-top: 16px;
+}
+
+.card,
+.table-wrap {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.stats-grid,
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.events-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.stat-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.stat-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.73rem;
+  border: 1px solid transparent;
+}
+
+.badge-violet { background: rgba(108, 79, 246, 0.2); border-color: rgba(108, 79, 246, 0.4); }
+.badge-cyan { background: rgba(34, 211, 238, 0.2); border-color: rgba(34, 211, 238, 0.4); }
+.badge-green { background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); }
+.badge-amber { background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); }
+.badge-rose { background: rgba(244, 63, 94, 0.2); border-color: rgba(244, 63, 94, 0.4); }
+.badge-muted { background: rgba(156, 163, 175, 0.2); border-color: rgba(156, 163, 175, 0.4); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 8px;
+  font-size: 0.87rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 14px 0 10px;
+}
+
+.section-title {
+  font-weight: 700;
+}
+
+.event-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.event-card-banner {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background: linear-gradient(135deg, rgba(108, 79, 246, 0.2), rgba(34, 211, 238, 0.15));
+}
+
+.event-card-body {
+  padding: 12px;
+}
+
+.event-card-category {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.event-card-title {
+  font-weight: 700;
+  margin: 5px 0;
+}
+
+.event-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #d1d5db;
+  font-size: 0.82rem;
+  margin-bottom: 10px;
+}
+
+.event-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.search-input-wrap {
+  flex: 1;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.8;
+}
+
+.search-input-wrap .form-control {
+  padding-left: 34px;
+}
+
+.d-flex { display: flex; }
+.justify-between { justify-content: space-between; }
+.align-center { align-items: center; }
+.gap-8 { gap: 8px; }
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); }
+.text-sm { font-size: 0.82rem; }
+.fw-600 { font-weight: 600; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mt-32 { margin-top: 32px; }
+.mb-16 { margin-bottom: 16px; }
+
+@media (max-width: 1100px) {
+  .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .page-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 700px) {
+  .form-row,
+  .events-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

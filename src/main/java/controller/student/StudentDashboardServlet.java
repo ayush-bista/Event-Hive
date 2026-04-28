@@ -30,6 +30,6 @@ public class StudentDashboardServlet extends HttpServlet {
         } catch (Exception e) {
             req.setAttribute("error", "Could not load dashboard.");
         }
-        req.getRequestDispatcher("/WEB-INF/view/student/dashboard.jsp").forward(req, res);
+        req.getRequestDispatcher("/WEB-INF/views/student/dashboard.jsp").forward(req, res);
     }
 }

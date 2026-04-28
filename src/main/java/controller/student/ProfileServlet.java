@@ -23,7 +23,7 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(req, res);
+        req.getRequestDispatcher("/WEB-INF/views/student/profile.jsp").forward(req, res);
     }
 
     @Override
@@ -41,12 +41,12 @@ public class ProfileServlet extends HttpServlet {
 
                 if (!ValidationUtil.isValidName(fullName)) {
                     req.setAttribute("error", "Name must contain letters only.");
-                    req.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(req, res);
+                    req.getRequestDispatcher("/WEB-INF/views/student/profile.jsp").forward(req, res);
                     return;
                 }
                 if (!ValidationUtil.isValidPhone(phone)) {
                     req.setAttribute("error", "Phone must be 10 digits.");
-                    req.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(req, res);
+                    req.getRequestDispatcher("/WEB-INF/views/student/profile.jsp").forward(req, res);
                     return;
                 }
 
@@ -66,18 +66,18 @@ public class ProfileServlet extends HttpServlet {
 
                 if (!PasswordUtil.verify(current, user.getPassword())) {
                     req.setAttribute("error", "Current password is incorrect.");
-                    req.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(req, res);
+                    req.getRequestDispatcher("/WEB-INF/views/student/profile.jsp").forward(req, res);
                     return;
                 }
                 if (!ValidationUtil.isValidPassword(newPass)) {
                     req.setAttribute("error",
                             "New password must be 8+ chars with uppercase, number, and special character.");
-                    req.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(req, res);
+                    req.getRequestDispatcher("/WEB-INF/views/student/profile.jsp").forward(req, res);
                     return;
                 }
                 if (!newPass.equals(confirm)) {
                     req.setAttribute("error", "Passwords do not match.");
-                    req.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(req, res);
+                    req.getRequestDispatcher("/WEB-INF/views/student/profile.jsp").forward(req, res);
                     return;
                 }
                 userDAO.updatePassword(user.getUserId(), PasswordUtil.hash(newPass));
@@ -87,6 +87,6 @@ public class ProfileServlet extends HttpServlet {
             req.setAttribute("error", "Update failed. Please try again.");
         }
 
-        req.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(req, res);
+        req.getRequestDispatcher("/WEB-INF/views/student/profile.jsp").forward(req, res);
     }
 }
