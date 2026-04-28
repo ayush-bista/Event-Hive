@@ -1,0 +1,97 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/favicon.png">
+    <title>My Profile &mdash; Event Hive</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+<body>
+<div class="page-wrapper">
+    <%@ include file="../includes/sidebar.jsp" %>
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="top-bar-title">&#128100; My Profile</div>
+            <div class="top-bar-actions">
+                <a href="${pageContext.request.contextPath}/logout" class="btn btn-outline btn-sm">Sign Out</a>
+            </div>
+        </div>
+
+        <div class="page-body">
+            <c:if test="${not empty error}">
+                <div class="alert alert-error mb-16">&#9888; ${error}</div>
+            </c:if>
+            <c:if test="${not empty success}">
+                <div class="alert alert-success mb-16">&#10004; ${success}</div>
+            </c:if>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+
+                <!-- Update Profile -->
+                <div class="card">
+                    <h3 style="font-size:1rem; margin-bottom:20px;">Personal Information</h3>
+                    <form method="post" action="${pageContext.request.contextPath}/student/profile">
+                        <input type="hidden" name="action" value="updateProfile">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" name="fullName" class="form-control"
+                                   value="${sessionScope.loggedInUser.fullName}" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email <span class="text-muted">(read only)</span></label>
+                            <input type="email" class="form-control"
+                                   value="${sessionScope.loggedInUser.email}" readonly
+                                   style="opacity:0.5; cursor:not-allowed;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input type="text" name="phone" class="form-control"
+                                   value="${sessionScope.loggedInUser.phone}" maxlength="10">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" name="dateOfBirth" class="form-control"
+                                   value="${sessionScope.loggedInUser.dateOfBirth}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- Change Password -->
+                <div class="card">
+                    <h3 style="font-size:1rem; margin-bottom:20px;">Change Password</h3>
+                    <form method="post" action="${pageContext.request.contextPath}/student/profile">
+                        <input type="hidden" name="action" value="changePassword">
+                        <div class="form-group">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" name="currentPassword" class="form-control"
+                                   placeholder="Enter current password" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">New Password</label>
+                            <input type="password" name="newPassword" class="form-control"
+                                   placeholder="Min 8 chars, 1 upper, 1 digit, 1 special" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" name="confirmPassword" class="form-control"
+                                   placeholder="Repeat new password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    @media (max-width: 700px) {
+        .page-body > div { grid-template-columns: 1fr !important; }
+    }
+</style>
+</body>
+</html>

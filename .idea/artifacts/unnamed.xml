@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Eventhive_Coursework:war exploded" build-on-make="true">
+    <output-path>$PROJECT_DIR$/out/artifacts/Eventhive_Coursework_war_exploded</output-path>
+    <root id="root">
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/webapp" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="coursework" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

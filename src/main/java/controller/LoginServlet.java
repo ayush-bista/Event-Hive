@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             redirect(user, req, res);
             return;
         }
-        req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, res);
+        req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, res);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
         // Basic input check
         if (!ValidationUtil.isValidEmail(email) || !ValidationUtil.isNotEmpty(password)) {
             req.setAttribute("error", "Please enter a valid email and password.");
-            req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, res);
+            req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, res);
             return;
         }
 
@@ -51,13 +51,13 @@ public class LoginServlet extends HttpServlet {
 
             if (user == null || !PasswordUtil.verify(password, user.getPassword())) {
                 req.setAttribute("error", "Invalid email or password.");
-                req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, res);
+                req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, res);
                 return;
             }
 
             if (user.isStudent() && !user.isApprovedUser()) {
                 req.setAttribute("error", "Your account is pending admin approval.");
-                req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, res);
+                req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, res);
                 return;
             }
 
@@ -80,7 +80,7 @@ public class LoginServlet extends HttpServlet {
 
         } catch (Exception e) {
             req.setAttribute("error", "A server error occurred. Please try again.");
-            req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, res);
+            req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, res);
         }
     }
 
