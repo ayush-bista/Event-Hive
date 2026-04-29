@@ -162,6 +162,12 @@ img { max-width: 100%; display: block; }
   stroke-linejoin: round;
 }
 
+.nav-link .nav-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
 .sidebar-user {
   padding: 16px;
   border-top: 1px solid var(--border);
