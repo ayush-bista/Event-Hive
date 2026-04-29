@@ -9,7 +9,10 @@ import util.PasswordUtil;
 import util.ValidationUtil;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Date;
+import java.util.Base64;
 
 /**
  * ProfileServlet - View and update student profile.
@@ -82,6 +85,33 @@ public class ProfileServlet extends HttpServlet {
                 }
                 userDAO.updatePassword(user.getUserId(), PasswordUtil.hash(newPass));
                 req.setAttribute("success", "Password changed successfully.");
+            } else if ("updateProfileImage".equals(action)) {
+                String croppedImage = req.getParameter("croppedImage");
+
+                if (croppedImage == null || !croppedImage.startsWith("data:image/png;base64,")) {
+                    req.setAttribute("error", "Choose and crop a PNG or JPG image before applying.");
+                    req.getRequestDispatcher("/WEB-INF/views/student/profile.jsp").forward(req, res);
+                    return;
+                }
+
+                String base64 = croppedImage.substring("data:image/png;base64,".length());
+                byte[] imageBytes = Base64.getDecoder().decode(base64);
+                if (imageBytes.length > 2_000_000) {
+                    req.setAttribute("error", "Profile image is too large. Please choose a smaller image.");
+                    req.getRequestDispatcher("/WEB-INF/views/student/profile.jsp").forward(req, res);
+                    return;
+                }
+
+                String uploadRoot = req.getServletContext().getRealPath("/uploads/profiles");
+                Path uploadDir = Path.of(uploadRoot);
+                Files.createDirectories(uploadDir);
+
+                String fileName = "student-" + user.getUserId() + "-" + System.currentTimeMillis() + ".png";
+                Files.write(uploadDir.resolve(fileName), imageBytes);
+                userDAO.updateProfilePic(user.getUserId(), fileName);
+
+                req.getSession().setAttribute("loggedInUser", userDAO.getUserById(user.getUserId()));
+                req.setAttribute("success", "Profile image updated successfully.");
             }
         } catch (Exception e) {
             req.setAttribute("error", "Update failed. Please try again.");

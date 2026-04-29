@@ -171,6 +171,16 @@ public class UserDAO {
         }
     }
 
+    public boolean updateProfilePic(int userId, String profilePic) throws SQLException {
+        String sql = "UPDATE users SET profile_pic=? WHERE user_id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, profilePic);
+            ps.setInt(2, userId);
+            return ps.executeUpdate() > 0;
+        }
+    }
+
     // ── Count pending registrations (for admin dashboard) ────────────────────
     public int countPendingUsers() throws SQLException {
         String sql = "SELECT COUNT(*) FROM users WHERE role='student' AND is_approved=0";

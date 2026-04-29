@@ -34,7 +34,7 @@
             <!-- Search & Filter -->
             <form method="get" action="${pageContext.request.contextPath}/student/events" class="search-bar">
                 <div class="search-input-wrap">
-                    <span class="search-icon">Search</span>
+                    <span class="search-icon">⌕</span>
                     <input type="text" name="keyword" class="form-control"
                            placeholder="Search events..." value="${keyword}">
                 </div>
