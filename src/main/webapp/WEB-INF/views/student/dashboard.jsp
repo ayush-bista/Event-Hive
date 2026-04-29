@@ -215,6 +215,15 @@
             color:#111827;
             line-height:1;
         }
+        .student-dashboard-page .student-panel-header svg {
+            width:18px;
+            height:18px;
+            fill:none;
+            stroke:currentColor;
+            stroke-width:2;
+            stroke-linecap:round;
+            stroke-linejoin:round;
+        }
         .student-dashboard-page .student-panel-subtitle {
             color:#7a808c;
             font-size:.86rem;
@@ -383,7 +392,7 @@
                 <div class="student-attendance-card">
                     <div class="student-panel-header">
                         <div>Enrollment Status</div>
-                        <span>...</span>
+                        <span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></span>
                     </div>
                     <div class="student-panel-subtitle">Approved enrollments compared with other enrollment requests.</div>
                     <div class="student-donut-wrap">

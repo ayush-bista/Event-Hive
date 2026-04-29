@@ -85,6 +85,9 @@
             <% if (sidebarUser.getProfilePic() != null && !sidebarUser.getProfilePic().isBlank()) { %>
                 <img src="<%= ctx %>/uploads/profiles/<%= sidebarUser.getProfilePic() %>"
                      alt="<%= sidebarUser.getFullName() %> profile image">
+            <% } else if (isAdmin) { %>
+                <img alt=""
+                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='12' y1='8' x2='84' y2='88'%3E%3Cstop stop-color='%2338BDF8'/%3E%3Cstop offset='1' stop-color='%236C4FF6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='96' height='96' rx='48' fill='url(%23g)'/%3E%3Ccircle cx='48' cy='34' r='16' fill='%23fff'/%3E%3Cpath d='M22 80c3.9-14.5 14-23 26-23s22.1 8.5 26 23' fill='%23fff'/%3E%3Cpath d='M34 31h28l-4-10H38l-4 10Z' fill='%23111827' opacity='.2'/%3E%3C/svg%3E">
             <% } else { %>
                 <%= sidebarUser.getFullName().substring(0, 1).toUpperCase() %>
             <% } %>

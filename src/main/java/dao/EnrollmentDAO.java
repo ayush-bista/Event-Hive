@@ -4,8 +4,13 @@ import model.Enrollment;
 import util.DBConnection;
 
 import java.sql.*;
+import java.time.YearMonth;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * EnrollmentDAO - All database operations for the enrollments table.
@@ -117,6 +122,41 @@ public class EnrollmentDAO {
     }
 
     // ── Private mapper ────────────────────────────────────────────────────────
+    public Map<String, Integer> getMonthlyParticipationCounts(int months) throws SQLException {
+        Map<String, Integer> counts = new LinkedHashMap<>();
+        YearMonth start = YearMonth.now().minusMonths(months - 1);
+        for (int i = 0; i < months; i++) {
+            YearMonth month = start.plusMonths(i);
+            counts.put(month.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH).toUpperCase(), 0);
+        }
+
+        String sql = "SELECT DATE_FORMAT(enrolled_at, '%Y-%m') AS month_key, COUNT(*) AS total " +
+                "FROM enrollments " +
+                "WHERE status='approved' AND enrolled_at >= ? " +
+                "GROUP BY month_key ORDER BY month_key";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setTimestamp(1, Timestamp.valueOf(start.atDay(1).atStartOfDay()));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                YearMonth month = YearMonth.parse(rs.getString("month_key"));
+                String label = month.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH).toUpperCase();
+                if (counts.containsKey(label)) counts.put(label, rs.getInt("total"));
+            }
+        }
+        return counts;
+    }
+
+    public int countParticipatingStudents() throws SQLException {
+        String sql = "SELECT COUNT(DISTINCT user_id) FROM enrollments WHERE status='approved'";
+        try (Connection conn = DBConnection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
+    }
+
     private Enrollment mapRow(ResultSet rs) throws SQLException {
         Enrollment en = new Enrollment();
         en.setEnrollmentId(rs.getInt("enrollment_id"));

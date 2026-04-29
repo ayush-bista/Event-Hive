@@ -8,6 +8,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
+import java.time.Year;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * AdminDashboardServlet - Loads stats for the admin home page.
@@ -24,11 +27,21 @@ public class AdminDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         try {
-            req.setAttribute("totalStudents",     userDAO.getAllStudents().size());
+            int totalStudents = userDAO.getAllStudents().size();
+            int participatingStudents = enrollmentDAO.countParticipatingStudents();
+            int participationRate = totalStudents == 0 ? 0 : (participatingStudents * 100) / totalStudents;
+            Map<String, Integer> monthlyParticipation = enrollmentDAO.getMonthlyParticipationCounts(6);
+            int maxMonthlyParticipation = Math.max(1, Collections.max(monthlyParticipation.values()));
+
+            req.setAttribute("totalStudents",     totalStudents);
             req.setAttribute("pendingUsers",      userDAO.countPendingUsers());
             req.setAttribute("upcomingEvents",    eventDAO.countUpcomingEvents());
             req.setAttribute("totalEnrollments",  enrollmentDAO.countTotalEnrollments());
-            req.setAttribute("popularEvents",     eventDAO.getPopularEvents(5));
+            req.setAttribute("monthlyParticipation", monthlyParticipation);
+            req.setAttribute("maxMonthlyParticipation", maxMonthlyParticipation);
+            req.setAttribute("currentYear", Year.now().getValue());
+            req.setAttribute("participatingStudents", participatingStudents);
+            req.setAttribute("participationRate", participationRate);
             req.setAttribute("pendingEnrollments", enrollmentDAO.getAllPendingEnrollments());
             req.setAttribute("studentRequests",   userDAO.getPendingStudents());
         } catch (Exception e) {
