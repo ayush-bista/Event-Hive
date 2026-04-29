@@ -469,7 +469,7 @@
                 <span class="section-title">Latest Events</span>
                 <a href="${pageContext.request.contextPath}/student/events" class="btn btn-outline btn-sm">See All</a>
             </div>
-            <div class="events-grid">
+            <div class="events-grid latest-events-grid">
                 <c:forEach var="ev" items="${popularEvents}">
                     <div class="event-card">
                         <div class="event-card-banner">
@@ -510,7 +510,7 @@
                                     <c:otherwise><span class="badge badge-rose">Cancelled</span></c:otherwise>
                                 </c:choose>
                                 <a href="${pageContext.request.contextPath}/student/events"
-                                   class="btn btn-primary btn-sm">View</a>
+                                   class="btn btn-primary btn-sm latest-event-view-btn">View</a>
                             </div>
                         </div>
                     </div>
