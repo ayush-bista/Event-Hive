@@ -1,10 +1,6 @@
 package model;
 
 import java.sql.Timestamp;
-
-/**
- * Enrollment - Model class mapping to the `enrollments` table.
- */
 public class Enrollment {
 
     private int enrollmentId;
@@ -18,33 +14,23 @@ public class Enrollment {
     private String eventTitle;
     private String eventDate;
     private String eventStatus;
-
-    public Enrollment() {}
-
-    public int getEnrollmentId()               { return enrollmentId; }
-    public void setEnrollmentId(int id)         { this.enrollmentId = id; }
-
-    public int getUserId()                     { return userId; }
-    public void setUserId(int userId)           { this.userId = userId; }
-
-    public int getEventId()                    { return eventId; }
-    public void setEventId(int eventId)         { this.eventId = eventId; }
-
-    public Timestamp getEnrolledAt()           { return enrolledAt; }
-    public void setEnrolledAt(Timestamp t)      { this.enrolledAt = t; }
-
-    public String getStatus()                  { return status; }
-    public void setStatus(String status)        { this.status = status; }
-
-    public String getStudentName()             { return studentName; }
-    public void setStudentName(String name)     { this.studentName = name; }
-
-    public String getEventTitle()              { return eventTitle; }
-    public void setEventTitle(String title)     { this.eventTitle = title; }
-
-    public String getEventDate()               { return eventDate; }
-    public void setEventDate(String date)       { this.eventDate = date; }
-
-    public String getEventStatus()             { return eventStatus; }
-    public void setEventStatus(String status)   { this.eventStatus = status; }
+public Enrollment() {}
+public int getEnrollmentId()               { return enrollmentId; }
+public void setEnrollmentId(int id)         { this.enrollmentId = id; }
+public int getUserId()                     { return userId; }
+public void setUserId(int userId)           { this.userId = userId; }
+public int getEventId()                    { return eventId; }
+public void setEventId(int eventId)         { this.eventId = eventId; }
+public Timestamp getEnrolledAt()           { return enrolledAt; }
+public void setEnrolledAt(Timestamp t)      { this.enrolledAt = t; }
+public String getStatus()                  { return status; }
+public void setStatus(String status)        { this.status = status; }
+public String getStudentName()             { return studentName; }
+public void setStudentName(String name)     { this.studentName = name; }
+public String getEventTitle()              { return eventTitle; }
+public void setEventTitle(String title)     { this.eventTitle = title; }
+public String getEventDate()               { return eventDate; }
+public void setEventDate(String date)       { this.eventDate = date; }
+public String getEventStatus()             { return eventStatus; }
+public void setEventStatus(String status)   { this.eventStatus = status; }
 }

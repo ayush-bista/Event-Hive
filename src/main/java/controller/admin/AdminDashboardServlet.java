@@ -11,19 +11,12 @@ import java.io.IOException;
 import java.time.Year;
 import java.util.Collections;
 import java.util.Map;
-
-/**
- * AdminDashboardServlet - Loads stats for the admin home page.
- * URL: /admin/dashboard
- */
 @WebServlet("/admin/dashboard")
 public class AdminDashboardServlet extends HttpServlet {
-
-    private final UserDAO       userDAO       = new UserDAO();
-    private final EventDAO      eventDAO      = new EventDAO();
-    private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
-
-    @Override
+private final UserDAO       userDAO       = new UserDAO();
+private final EventDAO      eventDAO      = new EventDAO();
+private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
+@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         try {

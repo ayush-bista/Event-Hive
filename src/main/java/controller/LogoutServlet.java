@@ -5,15 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
-
-/**
- * LogoutServlet - Invalidates session and clears cookies.
- * URL: /logout
- */
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
-
-    @Override
+@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 

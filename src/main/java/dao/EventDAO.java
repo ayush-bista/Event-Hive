@@ -6,14 +6,10 @@ import util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * EventDAO - All database operations for the events table.
- */
 public class EventDAO {
 
     // ── Create event ──────────────────────────────────────────────────────────
-    public boolean createEvent(Event event) throws SQLException {
+public boolean createEvent(Event event) throws SQLException {
         String sql = "INSERT INTO events (title, description, category_id, venue, event_date, " +
                 "event_time, deadline, capacity, banner_image, status, created_by) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -35,7 +31,7 @@ public class EventDAO {
     }
 
     // ── Get all events with category name and enrollment count ────────────────
-    public List<Event> getAllEvents() throws SQLException {
+public List<Event> getAllEvents() throws SQLException {
         List<Event> list = new ArrayList<>();
         String sql = "SELECT e.*, ec.category_name, " +
                 "COUNT(en.enrollment_id) AS enrollment_count " +
@@ -52,7 +48,7 @@ public class EventDAO {
     }
 
     // ── Get event by ID ───────────────────────────────────────────────────────
-    public Event getEventById(int eventId) throws SQLException {
+public Event getEventById(int eventId) throws SQLException {
         String sql = "SELECT e.*, ec.category_name, " +
                 "COUNT(en.enrollment_id) AS enrollment_count " +
                 "FROM events e " +
@@ -69,7 +65,7 @@ public class EventDAO {
     }
 
     // ── Search events by title or category ────────────────────────────────────
-    public List<Event> searchEvents(String keyword, String category) throws SQLException {
+public List<Event> searchEvents(String keyword, String category) throws SQLException {
         List<Event> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
                 "SELECT e.*, ec.category_name, COUNT(en.enrollment_id) AS enrollment_count " +
@@ -99,7 +95,7 @@ public class EventDAO {
     }
 
     // ── Update event ──────────────────────────────────────────────────────────
-    public boolean updateEvent(Event event) throws SQLException {
+public boolean updateEvent(Event event) throws SQLException {
         String sql = "UPDATE events SET title=?, description=?, category_id=?, venue=?, " +
                 "event_date=?, event_time=?, deadline=?, capacity=?, banner_image=?, status=? WHERE event_id=?";
         try (Connection conn = DBConnection.getConnection();
@@ -120,7 +116,7 @@ public class EventDAO {
     }
 
     // ── Delete event ──────────────────────────────────────────────────────────
-    public boolean deleteEvent(int eventId) throws SQLException {
+public boolean deleteEvent(int eventId) throws SQLException {
         String sql = "DELETE FROM events WHERE event_id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -130,7 +126,7 @@ public class EventDAO {
     }
 
     // ── Count upcoming events (for admin dashboard) ────────────────────────
-    public int countUpcomingEvents() throws SQLException {
+public int countUpcomingEvents() throws SQLException {
         String sql = "SELECT COUNT(*) FROM events WHERE status='upcoming'";
         try (Connection conn = DBConnection.getConnection();
              Statement st = conn.createStatement();
@@ -141,7 +137,7 @@ public class EventDAO {
     }
 
     // ── Get most popular events by enrollment count ────────────────────────
-    public List<Event> getPopularEvents(int limit) throws SQLException {
+public List<Event> getPopularEvents(int limit) throws SQLException {
         List<Event> list = new ArrayList<>();
         String sql = "SELECT e.*, ec.category_name, COUNT(en.enrollment_id) AS enrollment_count " +
                 "FROM events e " +
@@ -156,8 +152,7 @@ public class EventDAO {
         }
         return list;
     }
-
-    public List<Event> getLatestEvents(int limit) throws SQLException {
+public List<Event> getLatestEvents(int limit) throws SQLException {
         List<Event> list = new ArrayList<>();
         String sql = "SELECT e.*, ec.category_name, COUNT(en.enrollment_id) AS enrollment_count " +
                 "FROM events e " +
@@ -174,7 +169,7 @@ public class EventDAO {
     }
 
     // ── Private mapper ────────────────────────────────────────────────────────
-    private Event mapRow(ResultSet rs) throws SQLException {
+private Event mapRow(ResultSet rs) throws SQLException {
         Event e = new Event();
         e.setEventId(rs.getInt("event_id"));
         e.setTitle(rs.getString("title"));

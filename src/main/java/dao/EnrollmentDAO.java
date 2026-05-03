@@ -11,14 +11,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-/**
- * EnrollmentDAO - All database operations for the enrollments table.
- */
 public class EnrollmentDAO {
 
     // ── Enroll student in event ───────────────────────────────────────────────
-    public boolean enroll(int userId, int eventId) throws SQLException {
+public boolean enroll(int userId, int eventId) throws SQLException {
         String sql = "INSERT INTO enrollments (user_id, event_id, status) VALUES (?, ?, 'pending')";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -29,7 +25,7 @@ public class EnrollmentDAO {
     }
 
     // ── Check if student is already enrolled ──────────────────────────────────
-    public boolean isEnrolled(int userId, int eventId) throws SQLException {
+public boolean isEnrolled(int userId, int eventId) throws SQLException {
         String sql = "SELECT 1 FROM enrollments WHERE user_id=? AND event_id=? AND status != 'cancelled'";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -40,7 +36,7 @@ public class EnrollmentDAO {
     }
 
     // ── Get all enrollments for a student ─────────────────────────────────────
-    public List<Enrollment> getEnrollmentsByUser(int userId) throws SQLException {
+public List<Enrollment> getEnrollmentsByUser(int userId) throws SQLException {
         List<Enrollment> list = new ArrayList<>();
         String sql = "SELECT en.*, e.title AS event_title, e.event_date, e.status AS event_status " +
                 "FROM enrollments en " +
@@ -56,7 +52,7 @@ public class EnrollmentDAO {
     }
 
     // ── Get all enrollments for an event (admin view) ────────────────────────
-    public List<Enrollment> getEnrollmentsByEvent(int eventId) throws SQLException {
+public List<Enrollment> getEnrollmentsByEvent(int eventId) throws SQLException {
         List<Enrollment> list = new ArrayList<>();
         String sql = "SELECT en.*, u.full_name AS student_name, e.title AS event_title, e.event_date, e.status AS event_status " +
                 "FROM enrollments en " +
@@ -73,7 +69,7 @@ public class EnrollmentDAO {
     }
 
     // ── Get all pending enrollments (admin) ────────────────────────────────
-    public List<Enrollment> getAllPendingEnrollments() throws SQLException {
+public List<Enrollment> getAllPendingEnrollments() throws SQLException {
         List<Enrollment> list = new ArrayList<>();
         String sql = "SELECT en.*, u.full_name AS student_name, e.title AS event_title, e.event_date, e.status AS event_status " +
                 "FROM enrollments en " +
@@ -89,7 +85,7 @@ public class EnrollmentDAO {
     }
 
     // ── Update enrollment status ──────────────────────────────────────────────
-    public boolean updateStatus(int enrollmentId, String status) throws SQLException {
+public boolean updateStatus(int enrollmentId, String status) throws SQLException {
         String sql = "UPDATE enrollments SET status=? WHERE enrollment_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -100,7 +96,7 @@ public class EnrollmentDAO {
     }
 
     // ── Cancel enrollment (student cancels own) ────────────────────────────
-    public boolean cancelEnrollment(int userId, int eventId) throws SQLException {
+public boolean cancelEnrollment(int userId, int eventId) throws SQLException {
         String sql = "UPDATE enrollments SET status='cancelled' WHERE user_id=? AND event_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -111,7 +107,7 @@ public class EnrollmentDAO {
     }
 
     // ── Total enrollment count (admin dashboard) ────────────────────────────
-    public int countTotalEnrollments() throws SQLException {
+public int countTotalEnrollments() throws SQLException {
         String sql = "SELECT COUNT(*) FROM enrollments WHERE status='approved'";
         try (Connection conn = DBConnection.getConnection();
              Statement st = conn.createStatement();
@@ -122,7 +118,7 @@ public class EnrollmentDAO {
     }
 
     // ── Private mapper ────────────────────────────────────────────────────────
-    public Map<String, Integer> getMonthlyParticipationCounts(int months) throws SQLException {
+public Map<String, Integer> getMonthlyParticipationCounts(int months) throws SQLException {
         Map<String, Integer> counts = new LinkedHashMap<>();
         YearMonth start = YearMonth.now().minusMonths(months - 1);
         for (int i = 0; i < months; i++) {
@@ -146,8 +142,7 @@ public class EnrollmentDAO {
         }
         return counts;
     }
-
-    public int countParticipatingStudents() throws SQLException {
+public int countParticipatingStudents() throws SQLException {
         String sql = "SELECT COUNT(DISTINCT user_id) FROM enrollments WHERE status='approved'";
         try (Connection conn = DBConnection.getConnection();
              Statement st = conn.createStatement();
@@ -156,8 +151,7 @@ public class EnrollmentDAO {
         }
         return 0;
     }
-
-    private Enrollment mapRow(ResultSet rs) throws SQLException {
+private Enrollment mapRow(ResultSet rs) throws SQLException {
         Enrollment en = new Enrollment();
         en.setEnrollmentId(rs.getInt("enrollment_id"));
         en.setUserId(rs.getInt("user_id"));

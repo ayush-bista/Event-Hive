@@ -9,17 +9,10 @@ import util.PasswordUtil;
 import util.ValidationUtil;
 
 import java.io.IOException;
-
-/**
- * LoginServlet - Handles GET (show form) and POST (process login).
- * URL: /login
- */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-
-    private final UserDAO userDAO = new UserDAO();
-
-    @Override
+private final UserDAO userDAO = new UserDAO();
+@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         // If already logged in, redirect to appropriate dashboard
@@ -31,8 +24,7 @@ public class LoginServlet extends HttpServlet {
         }
         req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, res);
     }
-
-    @Override
+@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
@@ -83,8 +75,7 @@ public class LoginServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, res);
         }
     }
-
-    private void redirect(User user, HttpServletRequest req, HttpServletResponse res)
+private void redirect(User user, HttpServletRequest req, HttpServletResponse res)
             throws IOException {
         String ctx = req.getContextPath();
         if (user.isAdmin())   res.sendRedirect(ctx + "/admin/dashboard");

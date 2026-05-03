@@ -10,23 +10,15 @@ import util.ValidationUtil;
 
 import java.io.IOException;
 import java.sql.Date;
-
-/**
- * RegisterServlet - Handles student registration.
- * URL: /register
- */
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
-
-    private final UserDAO userDAO = new UserDAO();
-
-    @Override
+private final UserDAO userDAO = new UserDAO();
+@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req, res);
     }
-
-    @Override
+@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
@@ -100,8 +92,7 @@ public class RegisterServlet extends HttpServlet {
             setErrorAndForward(req, res, "A server error occurred. Please try again.");
         }
     }
-
-    private void setErrorAndForward(HttpServletRequest req, HttpServletResponse res, String msg)
+private void setErrorAndForward(HttpServletRequest req, HttpServletResponse res, String msg)
             throws ServletException, IOException {
         req.setAttribute("error", msg);
         req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req, res);

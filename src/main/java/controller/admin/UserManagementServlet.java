@@ -6,17 +6,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
-
-/**
- * UserManagementServlet - Admin approves / deletes student accounts.
- * URL: /admin/users
- */
 @WebServlet("/admin/users")
 public class UserManagementServlet extends HttpServlet {
-
-    private final UserDAO userDAO = new UserDAO();
-
-    @Override
+private final UserDAO userDAO = new UserDAO();
+@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         try {
@@ -27,8 +20,7 @@ public class UserManagementServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, res);
         }
     }
-
-    @Override
+@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 

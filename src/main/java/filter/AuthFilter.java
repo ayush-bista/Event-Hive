@@ -6,18 +6,9 @@ import jakarta.servlet.http.*;
 import model.User;
 
 import java.io.IOException;
-
-/**
- * AuthFilter - Intercepts every request.
- * ● Public URLs (/login, /register, /index.jsp, static assets) pass through.
- * ● /admin/* URLs require an admin session.
- * ● /student/* URLs require an approved student session.
- * ● All other protected URLs require any authenticated session.
- */
 @WebFilter("/*")
 public class AuthFilter implements Filter {
-
-    @Override
+@Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
 
@@ -65,8 +56,7 @@ public class AuthFilter implements Filter {
 
         chain.doFilter(req, res);
     }
-
-    private boolean isPublicResource(String uri, String ctx) {
+private boolean isPublicResource(String uri, String ctx) {
         return uri.equals(ctx)
                 || uri.equals(ctx + "/")
                 || uri.equals(ctx + "/index.jsp")

@@ -13,23 +13,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Date;
 import java.util.Base64;
-
-/**
- * ProfileServlet - View and update student profile.
- * URL: /student/profile
- */
 @WebServlet("/student/profile")
 public class ProfileServlet extends HttpServlet {
-
-    private final UserDAO userDAO = new UserDAO();
-
-    @Override
+private final UserDAO userDAO = new UserDAO();
+@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/student/profile.jsp").forward(req, res);
     }
-
-    @Override
+@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 

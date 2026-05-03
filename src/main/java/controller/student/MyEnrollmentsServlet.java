@@ -7,17 +7,10 @@ import jakarta.servlet.http.*;
 import model.User;
 
 import java.io.IOException;
-
-/**
- * MyEnrollmentsServlet - Full enrollment history for students.
- * URL: /student/enrollments
- */
 @WebServlet("/student/enrollments")
 public class MyEnrollmentsServlet extends HttpServlet {
-
-    private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
-
-    @Override
+private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
+@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         try {

@@ -9,18 +9,11 @@ import model.Event;
 import model.User;
 
 import java.io.IOException;
-
-/**
- * EventBrowseServlet - Student browses and searches events.
- * URL: /student/events
- */
 @WebServlet("/student/events")
 public class EventBrowseServlet extends HttpServlet {
-
-    private final EventDAO      eventDAO      = new EventDAO();
-    private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
-
-    @Override
+private final EventDAO      eventDAO      = new EventDAO();
+private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
+@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 

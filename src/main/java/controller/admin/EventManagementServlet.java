@@ -21,18 +21,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.UUID;
-
-/**
- * EventManagementServlet - Admin CRUD for events.
- * URL pattern: /admin/events
- *   GET  ?action=list      → list all events
- *   GET  ?action=add       → show add form
- *   GET  ?action=edit&id=X → show edit form
- *   GET  ?action=delete&id=X → delete event
- *   GET  ?action=participants&id=X → view enrollments
- *   POST ?action=save      → create / update event
- *   POST ?action=updateEnrollment → approve/reject enrollment
- */
 @WebServlet("/admin/events")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024,
@@ -40,11 +28,9 @@ import java.util.UUID;
         maxRequestSize = 6 * 1024 * 1024
 )
 public class EventManagementServlet extends HttpServlet {
-
-    private final EventDAO      eventDAO      = new EventDAO();
-    private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
-
-    @Override
+private final EventDAO      eventDAO      = new EventDAO();
+private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
+@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
@@ -85,8 +71,7 @@ public class EventManagementServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, res);
         }
     }
-
-    @Override
+@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
@@ -162,8 +147,7 @@ public class EventManagementServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/views/admin/event_form.jsp").forward(req, res);
         }
     }
-
-    private String saveBannerImage(HttpServletRequest req) throws IOException, ServletException {
+private String saveBannerImage(HttpServletRequest req) throws IOException, ServletException {
         Part filePart = req.getPart("bannerImage");
         if (filePart == null || filePart.getSize() == 0) {
             return null;
@@ -194,8 +178,7 @@ public class EventManagementServlet extends HttpServlet {
         filePart.write(uploadDir.resolve(fileName).toString());
         return fileName;
     }
-
-    private Date parseDateFlexible(String raw) {
+private Date parseDateFlexible(String raw) {
         if (raw == null || raw.trim().isEmpty()) {
             return null;
         }
@@ -222,8 +205,7 @@ public class EventManagementServlet extends HttpServlet {
 
         throw new IllegalArgumentException("Invalid date format: " + value);
     }
-
-    private Time parseTimeFlexible(String raw) {
+private Time parseTimeFlexible(String raw) {
         if (raw == null || raw.trim().isEmpty()) {
             return null;
         }

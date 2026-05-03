@@ -6,14 +6,10 @@ import util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * UserDAO - All database operations for the users table.
- */
 public class UserDAO {
 
-    // ── Register new student ──────────────────────────────────────────────────
-    public boolean registerUser(User user) throws SQLException {
+    // Register new student
+public boolean registerUser(User user) throws SQLException {
         String sql = "INSERT INTO users (full_name, email, phone, password, role, date_of_birth, is_approved) " +
                 "VALUES (?, ?, ?, ?, 'student', ?, 0)";
         try (Connection conn = DBConnection.getConnection();
@@ -36,7 +32,7 @@ public class UserDAO {
     }
 
     // ── Insert student academic details ───────────────────────────────────────
-    public void insertStudentDetails(User user) throws SQLException {
+public void insertStudentDetails(User user) throws SQLException {
         String sql = "INSERT INTO student_details (user_id, course, level, year) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -49,7 +45,7 @@ public class UserDAO {
     }
 
     // ── Find user by email (for login) ────────────────────────────────────────
-    public User findByEmail(String email) throws SQLException {
+public User findByEmail(String email) throws SQLException {
         String sql = "SELECT u.*, sd.course, sd.level, sd.year " +
                 "FROM users u " +
                 "LEFT JOIN student_details sd ON u.user_id = sd.user_id " +
@@ -64,7 +60,7 @@ public class UserDAO {
     }
 
     // ── Check if email already exists ─────────────────────────────────────────
-    public boolean emailExists(String email) throws SQLException {
+public boolean emailExists(String email) throws SQLException {
         String sql = "SELECT 1 FROM users WHERE email = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -74,7 +70,7 @@ public class UserDAO {
     }
 
     // ── Check if phone already exists ─────────────────────────────────────────
-    public boolean phoneExists(String phone) throws SQLException {
+public boolean phoneExists(String phone) throws SQLException {
         String sql = "SELECT 1 FROM users WHERE phone = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -84,7 +80,7 @@ public class UserDAO {
     }
 
     // ── Get user by ID ────────────────────────────────────────────────────────
-    public User getUserById(int userId) throws SQLException {
+public User getUserById(int userId) throws SQLException {
         String sql = "SELECT u.*, sd.course, sd.level, sd.year " +
                 "FROM users u " +
                 "LEFT JOIN student_details sd ON u.user_id = sd.user_id " +
@@ -99,7 +95,7 @@ public class UserDAO {
     }
 
     // ── Get all students (for admin) ──────────────────────────────────────────
-    public List<User> getAllStudents() throws SQLException {
+public List<User> getAllStudents() throws SQLException {
         List<User> list = new ArrayList<>();
         String sql = "SELECT u.*, sd.course, sd.level, sd.year " +
                 "FROM users u " +
@@ -112,8 +108,7 @@ public class UserDAO {
         }
         return list;
     }
-
-    public List<User> getPendingStudents() throws SQLException {
+public List<User> getPendingStudents() throws SQLException {
         List<User> list = new ArrayList<>();
         String sql = "SELECT u.*, sd.course, sd.level, sd.year " +
                 "FROM users u " +
@@ -128,7 +123,7 @@ public class UserDAO {
     }
 
     // ── Approve student ───────────────────────────────────────────────────────
-    public boolean approveUser(int userId) throws SQLException {
+public boolean approveUser(int userId) throws SQLException {
         String sql = "UPDATE users SET is_approved = 1 WHERE user_id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -138,7 +133,7 @@ public class UserDAO {
     }
 
     // ── Delete user ───────────────────────────────────────────────────────────
-    public boolean deleteUser(int userId) throws SQLException {
+public boolean deleteUser(int userId) throws SQLException {
         String sql = "DELETE FROM users WHERE user_id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -148,7 +143,7 @@ public class UserDAO {
     }
 
     // ── Update profile ────────────────────────────────────────────────────────
-    public boolean updateProfile(User user) throws SQLException {
+public boolean updateProfile(User user) throws SQLException {
         String sql = "UPDATE users SET full_name=?, phone=?, date_of_birth=? WHERE user_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -161,7 +156,7 @@ public class UserDAO {
     }
 
     // ── Update password ───────────────────────────────────────────────────────
-    public boolean updatePassword(int userId, String newHashedPassword) throws SQLException {
+public boolean updatePassword(int userId, String newHashedPassword) throws SQLException {
         String sql = "UPDATE users SET password=? WHERE user_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -170,8 +165,7 @@ public class UserDAO {
             return ps.executeUpdate() > 0;
         }
     }
-
-    public boolean updateProfilePic(int userId, String profilePic) throws SQLException {
+public boolean updateProfilePic(int userId, String profilePic) throws SQLException {
         String sql = "UPDATE users SET profile_pic=? WHERE user_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -182,18 +176,18 @@ public class UserDAO {
     }
 
     // ── Count pending registrations (for admin dashboard) ────────────────────
-    public int countPendingUsers() throws SQLException {
+public int countPendingUsers() throws SQLException {
         String sql = "SELECT COUNT(*) FROM users WHERE role='student' AND is_approved=0";
         try (Connection conn = DBConnection.getConnection();
              Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
             if (rs.next()) return rs.getInt(1);
-        }
+            }
         return 0;
     }
 
     // ── Private mapper ────────────────────────────────────────────────────────
-    private User mapRow(ResultSet rs) throws SQLException {
+private User mapRow(ResultSet rs) throws SQLException {
         User u = new User();
         u.setUserId(rs.getInt("user_id"));
         u.setFullName(rs.getString("full_name"));

@@ -8,18 +8,11 @@ import jakarta.servlet.http.*;
 import model.User;
 
 import java.io.IOException;
-
-/**
- * StudentDashboardServlet - Student home page.
- * URL: /student/dashboard
- */
 @WebServlet("/student/dashboard")
 public class StudentDashboardServlet extends HttpServlet {
-
-    private final EventDAO      eventDAO      = new EventDAO();
-    private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
-
-    @Override
+private final EventDAO      eventDAO      = new EventDAO();
+private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
+@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         try {

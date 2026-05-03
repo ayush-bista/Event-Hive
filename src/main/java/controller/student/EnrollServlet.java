@@ -9,20 +9,11 @@ import model.Event;
 import model.User;
 
 import java.io.IOException;
-
-/**
- * EnrollServlet - Handles enrollment and cancellation for students.
- * POST /student/enroll
- *   action=enroll  + eventId
- *   action=cancel  + eventId
- */
 @WebServlet("/student/enroll")
 public class EnrollServlet extends HttpServlet {
-
-    private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
-    private final EventDAO      eventDAO      = new EventDAO();
-
-    @Override
+private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
+private final EventDAO      eventDAO      = new EventDAO();
+@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
