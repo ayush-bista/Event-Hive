@@ -16,6 +16,7 @@ public static String hash(String plainText) {
             throw new RuntimeException("SHA-256 algorithm not available", e);
         }
     }
+
 public static boolean verify(String plainText, String storedHash) {
         return hash(plainText).equals(storedHash);
     }

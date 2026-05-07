@@ -77,7 +77,7 @@ private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
 
         String action = req.getParameter("action");
 
-        // ── Approve / reject enrollment ────────────────────────────────────
+        // Approve / reject enrollment
         if ("updateEnrollment".equals(action)) {
             try {
                 int    enId   = Integer.parseInt(req.getParameter("enrollmentId"));
@@ -91,7 +91,7 @@ private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
             return;
         }
 
-        // ── Create / update event ──────────────────────────────────────────
+        // Create / update event
         String idStr = req.getParameter("eventId");
         boolean isEdit = (idStr != null && !idStr.isEmpty());
 

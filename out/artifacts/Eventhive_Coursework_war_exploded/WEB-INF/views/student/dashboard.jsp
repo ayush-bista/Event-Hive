@@ -518,8 +518,13 @@
                                     <c:when test="${ev.status == 'completed'}"><span class="badge badge-muted">Completed</span></c:when>
                                     <c:otherwise><span class="badge badge-rose">Cancelled</span></c:otherwise>
                                 </c:choose>
-                                <a href="${pageContext.request.contextPath}/student/events"
-                                   class="btn btn-primary btn-sm latest-event-view-btn">View</a>
+                                <c:if test="${ev.status == 'upcoming' || ev.status == 'ongoing'}">
+                                    <form method="post" action="${pageContext.request.contextPath}/student/enroll" style="display:inline">
+                                        <input type="hidden" name="action" value="enroll">
+                                        <input type="hidden" name="eventId" value="${ev.eventId}">
+                                        <button type="submit" class="btn btn-primary btn-sm latest-event-view-btn">Apply</button>
+                                    </form>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -531,4 +536,3 @@
 </div>
 </body>
 </html>
-

@@ -22,7 +22,7 @@ public static boolean isValidPhone(String phone) {
         return phone != null && PHONE_PATTERN.matcher(phone.trim()).matches();
     }
 public static boolean isValidName(String name) {
-        return name != null && NAME_PATTERN.matcher(name.trim()).matches();
+    return name != null && NAME_PATTERN.matcher(name.trim()).matches();
     }
 public static boolean isValidPassword(String password) {
         return password != null && PASSWORD_PATTERN.matcher(password).matches();

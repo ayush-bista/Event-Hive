@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%
-    // Determine if admin or student for nav links
     model.User sidebarUser = (model.User) session.getAttribute("loggedInUser");
     boolean isAdmin = sidebarUser != null && sidebarUser.isAdmin();
     String ctx = request.getContextPath();
@@ -40,6 +39,20 @@
             Students
         </a>
 
+        <div class="nav-section-label">Analytics</div>
+
+        <a href="<%= ctx %>/admin/reports"
+           class="nav-link <%= uri.contains("/admin/reports") ? "active" : "" %>">
+            <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 4-8"/></svg></span>
+            Reports
+        </a>
+
+        <a href="<%= ctx %>/admin/messages"
+           class="nav-link <%= uri.contains("/admin/messages") ? "active" : "" %>">
+            <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 6.5h16v10A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-10Z"/><path d="m4.5 7 7.5 6 7.5-6"/></svg></span>
+            Messages
+        </a>
+
         <% } else { %>
         <div class="nav-section-label">Overview</div>
 
@@ -74,8 +87,8 @@
         <% } %>
 
         <div class="nav-section-label">Pages</div>
-        <a href="<%= ctx %>/about"   class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 3.5 13.8 8l4.7 1.7-4.7 1.8L12 16l-1.8-4.5-4.7-1.8L10.2 8 12 3.5Z"/><path d="M18 15.5 19 18l2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1 1-2.5Z"/></svg></span>About</a>
-        <a href="<%= ctx %>/contact" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 6.5h16v10A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-10Z"/><path d="m4.5 7 7.5 6 7.5-6"/><path d="m8 14-3.5 3M16 14l3.5 3"/></svg></span>Contact</a>
+        <a href="<%= ctx %>/about"   class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></span>About</a>
+        <a href="<%= ctx %>/contact" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 6.5h16v10A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-10Z"/><path d="m4.5 7 7.5 6 7.5-6"/></svg></span>Contact</a>
 
     </nav>
 
@@ -83,13 +96,13 @@
     <div class="sidebar-user">
         <div class="user-avatar">
             <% if (sidebarUser.getProfilePic() != null && !sidebarUser.getProfilePic().isBlank()) { %>
-                <img src="<%= ctx %>/uploads/profiles/<%= sidebarUser.getProfilePic() %>"
-                     alt="<%= sidebarUser.getFullName() %> profile image">
+            <img src="<%= ctx %>/uploads/profiles/<%= sidebarUser.getProfilePic() %>"
+                 alt="<%= sidebarUser.getFullName() %> profile image">
             <% } else if (isAdmin) { %>
-                <img alt=""
-                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='12' y1='8' x2='84' y2='88'%3E%3Cstop stop-color='%2338BDF8'/%3E%3Cstop offset='1' stop-color='%236C4FF6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='96' height='96' rx='48' fill='url(%23g)'/%3E%3Ccircle cx='48' cy='34' r='16' fill='%23fff'/%3E%3Cpath d='M22 80c3.9-14.5 14-23 26-23s22.1 8.5 26 23' fill='%23fff'/%3E%3Cpath d='M34 31h28l-4-10H38l-4 10Z' fill='%23111827' opacity='.2'/%3E%3C/svg%3E">
+            <img alt=""
+                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='12' y1='8' x2='84' y2='88'%3E%3Cstop stop-color='%2338BDF8'/%3E%3Cstop offset='1' stop-color='%236C4FF6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='96' height='96' rx='48' fill='url(%23g)'/%3E%3Ccircle cx='48' cy='34' r='16' fill='%23fff'/%3E%3Cpath d='M22 80c3.9-14.5 14-23 26-23s22.1 8.5 26 23' fill='%23fff'/%3E%3C/svg%3E">
             <% } else { %>
-                <%= sidebarUser.getFullName().substring(0, 1).toUpperCase() %>
+            <%= sidebarUser.getFullName().substring(0, 1).toUpperCase() %>
             <% } %>
         </div>
         <div class="user-info">

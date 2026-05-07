@@ -6,21 +6,24 @@ import util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * UserDAO - All database operations for the users and student_details tables.
+ * UPDATED for Final Milestone — added getPendingStudents() method.
+ */
 public class UserDAO {
 
-    // Register new student
-public boolean registerUser(User user) throws SQLException {
+    // ── Register new student ──────────────────────────────────────────────
+    public boolean registerUser(User user) throws SQLException {
         String sql = "INSERT INTO users (full_name, email, phone, password, role, date_of_birth, is_approved) " +
                 "VALUES (?, ?, ?, ?, 'student', ?, 0)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
             ps.setString(1, user.getFullName());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPhone());
             ps.setString(4, user.getPassword());
             ps.setDate(5, user.getDateOfBirth());
-
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 ResultSet keys = ps.getGeneratedKeys();
@@ -31,8 +34,8 @@ public boolean registerUser(User user) throws SQLException {
         return false;
     }
 
-    // ── Insert student academic details ───────────────────────────────────────
-public void insertStudentDetails(User user) throws SQLException {
+    // ── Insert student academic details ───────────────────────────────────
+    public void insertStudentDetails(User user) throws SQLException {
         String sql = "INSERT INTO student_details (user_id, course, level, year) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -44,8 +47,8 @@ public void insertStudentDetails(User user) throws SQLException {
         }
     }
 
-    // ── Find user by email (for login) ────────────────────────────────────────
-public User findByEmail(String email) throws SQLException {
+    // ── Find user by email (for login) ────────────────────────────────────
+    public User findByEmail(String email) throws SQLException {
         String sql = "SELECT u.*, sd.course, sd.level, sd.year " +
                 "FROM users u " +
                 "LEFT JOIN student_details sd ON u.user_id = sd.user_id " +
@@ -59,8 +62,8 @@ public User findByEmail(String email) throws SQLException {
         return null;
     }
 
-    // ── Check if email already exists ─────────────────────────────────────────
-public boolean emailExists(String email) throws SQLException {
+    // ── Check if email exists ─────────────────────────────────────────────
+    public boolean emailExists(String email) throws SQLException {
         String sql = "SELECT 1 FROM users WHERE email = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -69,8 +72,8 @@ public boolean emailExists(String email) throws SQLException {
         }
     }
 
-    // ── Check if phone already exists ─────────────────────────────────────────
-public boolean phoneExists(String phone) throws SQLException {
+    // ── Check if phone exists ─────────────────────────────────────────────
+    public boolean phoneExists(String phone) throws SQLException {
         String sql = "SELECT 1 FROM users WHERE phone = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -79,8 +82,8 @@ public boolean phoneExists(String phone) throws SQLException {
         }
     }
 
-    // ── Get user by ID ────────────────────────────────────────────────────────
-public User getUserById(int userId) throws SQLException {
+    // ── Get user by ID ────────────────────────────────────────────────────
+    public User getUserById(int userId) throws SQLException {
         String sql = "SELECT u.*, sd.course, sd.level, sd.year " +
                 "FROM users u " +
                 "LEFT JOIN student_details sd ON u.user_id = sd.user_id " +
@@ -94,8 +97,8 @@ public User getUserById(int userId) throws SQLException {
         return null;
     }
 
-    // ── Get all students (for admin) ──────────────────────────────────────────
-public List<User> getAllStudents() throws SQLException {
+    // ── Get all students ──────────────────────────────────────────────────
+    public List<User> getAllStudents() throws SQLException {
         List<User> list = new ArrayList<>();
         String sql = "SELECT u.*, sd.course, sd.level, sd.year " +
                 "FROM users u " +
@@ -108,12 +111,16 @@ public List<User> getAllStudents() throws SQLException {
         }
         return list;
     }
-public List<User> getPendingStudents() throws SQLException {
+
+    // ── Get only pending students (is_approved = 0) ───────────────────────
+    // Used in admin dashboard pending approval widget
+    public List<User> getPendingStudents() throws SQLException {
         List<User> list = new ArrayList<>();
         String sql = "SELECT u.*, sd.course, sd.level, sd.year " +
                 "FROM users u " +
                 "LEFT JOIN student_details sd ON u.user_id = sd.user_id " +
-                "WHERE u.role = 'student' AND u.is_approved = 0 ORDER BY u.created_at DESC";
+                "WHERE u.role = 'student' AND u.is_approved = 0 " +
+                "ORDER BY u.created_at DESC";
         try (Connection conn = DBConnection.getConnection();
              Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
@@ -122,8 +129,8 @@ public List<User> getPendingStudents() throws SQLException {
         return list;
     }
 
-    // ── Approve student ───────────────────────────────────────────────────────
-public boolean approveUser(int userId) throws SQLException {
+    // ── Approve student ───────────────────────────────────────────────────
+    public boolean approveUser(int userId) throws SQLException {
         String sql = "UPDATE users SET is_approved = 1 WHERE user_id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -132,8 +139,8 @@ public boolean approveUser(int userId) throws SQLException {
         }
     }
 
-    // ── Delete user ───────────────────────────────────────────────────────────
-public boolean deleteUser(int userId) throws SQLException {
+    // ── Delete user ───────────────────────────────────────────────────────
+    public boolean deleteUser(int userId) throws SQLException {
         String sql = "DELETE FROM users WHERE user_id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -142,8 +149,8 @@ public boolean deleteUser(int userId) throws SQLException {
         }
     }
 
-    // ── Update profile ────────────────────────────────────────────────────────
-public boolean updateProfile(User user) throws SQLException {
+    // ── Update profile ────────────────────────────────────────────────────
+    public boolean updateProfile(User user) throws SQLException {
         String sql = "UPDATE users SET full_name=?, phone=?, date_of_birth=? WHERE user_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -155,8 +162,8 @@ public boolean updateProfile(User user) throws SQLException {
         }
     }
 
-    // ── Update password ───────────────────────────────────────────────────────
-public boolean updatePassword(int userId, String newHashedPassword) throws SQLException {
+    // ── Update password ───────────────────────────────────────────────────
+    public boolean updatePassword(int userId, String newHashedPassword) throws SQLException {
         String sql = "UPDATE users SET password=? WHERE user_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -165,29 +172,31 @@ public boolean updatePassword(int userId, String newHashedPassword) throws SQLEx
             return ps.executeUpdate() > 0;
         }
     }
-public boolean updateProfilePic(int userId, String profilePic) throws SQLException {
+
+    // ── Update profile picture ────────────────────────────────────────────
+    public boolean updateProfilePic(int userId, String filename) throws SQLException {
         String sql = "UPDATE users SET profile_pic=? WHERE user_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, profilePic);
-            ps.setInt(2, userId);
+            ps.setString(1, filename);
+            ps.setInt(2,    userId);
             return ps.executeUpdate() > 0;
         }
     }
 
-    // ── Count pending registrations (for admin dashboard) ────────────────────
-public int countPendingUsers() throws SQLException {
+    // ── Count pending approvals ───────────────────────────────────────────
+    public int countPendingUsers() throws SQLException {
         String sql = "SELECT COUNT(*) FROM users WHERE role='student' AND is_approved=0";
         try (Connection conn = DBConnection.getConnection();
              Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
             if (rs.next()) return rs.getInt(1);
-            }
+        }
         return 0;
     }
 
-    // ── Private mapper ────────────────────────────────────────────────────────
-private User mapRow(ResultSet rs) throws SQLException {
+    // ── Private mapper ────────────────────────────────────────────────────
+    private User mapRow(ResultSet rs) throws SQLException {
         User u = new User();
         u.setUserId(rs.getInt("user_id"));
         u.setFullName(rs.getString("full_name"));
@@ -199,7 +208,7 @@ private User mapRow(ResultSet rs) throws SQLException {
         u.setProfilePic(rs.getString("profile_pic"));
         u.setIsApproved(rs.getInt("is_approved"));
         u.setCreatedAt(rs.getTimestamp("created_at"));
-        // student_details columns (may be null for admin)
+        // student_details columns (null for admin rows)
         u.setCourse(rs.getString("course"));
         u.setLevel(rs.getString("level"));
         u.setYear(rs.getInt("year"));
