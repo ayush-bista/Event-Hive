@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/favicon.png">
-  <title>About Us &mdash; Event Hive</title>
+  <title>About Us</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
   <style>
     /* ── About page specific styles ── */
@@ -215,7 +215,7 @@
 
 <!-- Navbar -->
 <nav class="public-nav">
-  <span class="public-nav-logo">⚡ Event Hive</span>
+  <span class="public-nav-logo">Event Hive</span>
   <div class="public-nav-links">
     <a href="${pageContext.request.contextPath}/" class="btn btn-outline btn-sm">Home</a>
     <a href="${pageContext.request.contextPath}/contact" class="btn btn-outline btn-sm">Contact</a>
@@ -225,7 +225,6 @@
 
 <!-- Hero -->
 <div class="about-hero">
-  <div class="about-hero-badge">🎓 Itahari International College</div>
   <h1>About Event Hive</h1>
   <p>
     A modern, web-based college event management system built to simplify how
@@ -241,8 +240,8 @@
       <div class="mission-icon violet">🎯</div>
       <h3>Our Mission</h3>
       <p>
-        To create a centralised, efficient, and user-friendly platform that connects
-        students with meaningful college events — making participation easier, more
+        To create a centralized, efficient, and user-friendly platform that connects
+        students with meaningful college events making participation easier, more
         transparent, and accessible to everyone at Itahari International College.
       </p>
     </div>
@@ -279,37 +278,36 @@
 
   <!-- Team -->
   <div class="section-heading">Meet the Team</div>
-  <div class="section-sub">TVA Squad — CS5054NT Advanced Programming and Technologies, Spring 2026</div>
+  <div class="section-sub">TVA Squad</div>
   <div class="team-grid">
     <div class="team-card">
       <div class="team-avatar">A</div>
       <div class="team-name">Ayush Bista</div>
-      <div class="team-role">Team Leader</div>
-      <div class="team-id">ID: 24045833</div>
+<%--      <div class="team-role">Team Leader</div>--%>
+<%--      <div class="team-id">ID: 24045833</div>--%>
     </div>
     <div class="team-card">
       <div class="team-avatar">S</div>
       <div class="team-name">Suprim Giri</div>
-      <div class="team-role">Backend Developer</div>
-      <div class="team-id">ID: 24046116</div>
+<%--      <div class="team-role">Backend Developer</div>--%>
+<%--      <div class="team-id">ID: 24046116</div>--%>
     </div>
     <div class="team-card">
       <div class="team-avatar">D</div>
       <div class="team-name">Darsana Bhandari</div>
-      <div class="team-role">Student Portal</div>
-      <div class="team-id">ID: 24045861</div>
+<%--      <div class="team-role">Student Portal</div>--%>
+<%--      <div class="team-id">ID: 24045861</div>--%>
     </div>
     <div class="team-card">
       <div class="team-avatar">A</div>
       <div class="team-name">Akisha Bhujel</div>
-      <div class="team-role">Frontend & UI</div>
-      <div class="team-id">ID: 24045800</div>
+<%--      <div class="team-role">Frontend & UI</div>--%>
+<%--      <div class="team-id">ID: 24045800</div>--%>
     </div>
   </div>
 
   <!-- Features -->
   <div class="section-heading">System Features</div>
-  <div class="section-sub">Everything built into Event Hive for the final milestone</div>
   <div class="features-grid-about">
     <div class="feature-item">
       <div class="feature-item-icon">🔐</div>
@@ -344,7 +342,7 @@
     <div class="feature-item">
       <div class="feature-item-icon">📱</div>
       <h4>Responsive Design</h4>
-      <p>Fully responsive using CSS Flexbox and media queries — no Bootstrap used, pure custom CSS.</p>
+      <p>Fully responsive using CSS Flexbox and media queries, no Bootstrap used, pure custom CSS.</p>
     </div>
     <div class="feature-item">
       <div class="feature-item-icon">🛡</div>
@@ -360,12 +358,11 @@
 
   <!-- Tech Stack -->
   <div class="section-heading">Technologies Used</div>
-  <div class="section-sub">Built as required by CS5054NT — no Bootstrap or external CSS frameworks</div>
   <div class="features-grid-about" style="grid-template-columns: repeat(3,1fr);">
     <div class="feature-item">
       <div class="feature-item-icon">☕</div>
       <h4>Java & Jakarta EE</h4>
-      <p>Servlets and Filters using Jakarta EE 10 annotations — @WebServlet, @WebFilter, @MultipartConfig.</p>
+      <p>Servlets and Filters using Jakarta EE 10 annotations - @WebServlet, @WebFilter, @MultipartConfig.</p>
     </div>
     <div class="feature-item">
       <div class="feature-item-icon">📄</div>
@@ -380,7 +377,7 @@
     <div class="feature-item">
       <div class="feature-item-icon">🎨</div>
       <h4>Custom CSS</h4>
-      <p>Handcrafted CSS using Flexbox, Grid, CSS variables, and media queries — zero Bootstrap.</p>
+      <p>Handcrafted CSS using Flexbox, Grid, CSS variables, and media queries.</p>
     </div>
     <div class="feature-item">
       <div class="feature-item-icon">⚡</div>
@@ -424,8 +421,8 @@
 <!-- Footer -->
 <footer class="public-footer">
   <div>
-    <div class="public-footer-logo">⚡ Event Hive</div>
-    <div style="font-size:0.75rem; color:#9ca3af; margin-top:2px;">Itahari International College · CS5054NT · TVA Squad</div>
+    <div class="public-footer-logo">Event Hive</div>
+    <div style="font-size:0.75rem; color:#9ca3af; margin-top:2px;">Itahari International College</div>
   </div>
   <div class="public-footer-links">
     <a href="${pageContext.request.contextPath}/">Home</a>
@@ -433,7 +430,7 @@
     <a href="${pageContext.request.contextPath}/contact">Contact</a>
     <a href="${pageContext.request.contextPath}/login">Sign In</a>
   </div>
-  <div class="public-footer-copy">© 2026 TVA Squad · Spring Semester</div>
+  <div class="public-footer-copy">© 2026 TVA Squad</div>
 </footer>
 
 </body>

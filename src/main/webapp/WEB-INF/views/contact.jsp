@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/favicon.png">
-  <title>Contact Us &mdash; Event Hive</title>
+  <title>Contact Us</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
   <style>
     body { background: #f5f7fb; color: #111827; }
@@ -115,7 +115,7 @@
 
 <!-- Navbar -->
 <nav class="public-nav">
-  <span class="public-nav-logo">⚡ Event Hive</span>
+  <span class="public-nav-logo">Event Hive</span>
   <div class="d-flex gap-8 align-center">
     <a href="${pageContext.request.contextPath}/" class="btn btn-outline btn-sm">Home</a>
     <a href="${pageContext.request.contextPath}/about" class="btn btn-outline btn-sm">About</a>
@@ -218,8 +218,8 @@
 <!-- Footer -->
 <footer class="public-footer">
   <div>
-    <div class="public-footer-logo">⚡ Event Hive</div>
-    <div style="font-size:0.75rem; color:#9ca3af; margin-top:2px;">Itahari International College · CS5054NT · TVA Squad</div>
+    <div class="public-footer-logo">Event Hive</div>
+    <div style="font-size:0.75rem; color:#9ca3af; margin-top:2px;">Itahari International College</div>
   </div>
   <div class="public-footer-links">
     <a href="${pageContext.request.contextPath}/">Home</a>

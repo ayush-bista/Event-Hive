@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/favicon.png">
-    <title>Event Hive &mdash; Itahari International College</title>
+    <title>Event Hive</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -85,6 +85,49 @@
         .nav-links a:hover { color: var(--violet-dk); }
         .nav-links a:hover::after { width: 100%; }
         .nav-cta { display: flex; gap: 10px; align-items: center; }
+        .nav-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(15,23,42,0.16);
+            border-radius: 10px;
+            background: #fff;
+            color: #374151;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            cursor: pointer;
+        }
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 72px;
+            left: 16px;
+            right: 16px;
+            background: rgba(255,255,255,0.98);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 18px 44px rgba(15,23,42,0.16);
+            z-index: 120;
+            padding: 16px;
+        }
+        .mobile-nav.open { display: block; }
+        .mobile-nav a {
+            display: block;
+            padding: 10px 8px;
+            color: #374151;
+            font-size: 0.92rem;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        .mobile-nav a:hover { background: #f3f4f6; color: var(--violet-dk); }
+        .mobile-nav-actions {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            display: grid;
+            gap: 8px;
+        }
         .btn-ghost {
             padding: 9px 22px; border: 1px solid rgba(15,23,42,0.15);
             border-radius: 8px; color: #4B5563; text-decoration: none;
@@ -440,12 +483,28 @@
             nav{padding:16px 20px}
             nav.scrolled{padding:12px 20px}
             .nav-links{display:none}
+            .nav-cta{display:none}
+            .nav-menu-btn{display:inline-flex}
             .hero{padding:100px 20px 60px}
             .hero-right{display:none}
+            .hero-stats{
+                margin-top: 34px;
+                padding-top: 20px;
+                gap: 16px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+            .hero-stats > div:last-child { grid-column: 1 / -1; }
+            .hero-btns{flex-direction:column}
+            .hero-btns a{width:100%;justify-content:center}
             .section{padding:60px 20px}
             .feat-grid{grid-template-columns:1fr}
-            .steps-wrap{grid-template-columns:1fr 1fr}
+            .steps-wrap{grid-template-columns:1fr}
+            .gallery-track{animation:none}
+            .gal-item{width:260px;height:170px}
             .cta-wrap{margin:0 20px 60px;padding:48px 24px}
+            .cta-b{display:grid;gap:10px}
+            .cta-b a{width:100%;justify-content:center}
             footer{padding:28px 20px;flex-direction:column;align-items:flex-start}
             .college-strip{padding:14px 20px}
         }
@@ -470,7 +529,19 @@
         <a href="${pageContext.request.contextPath}/login" class="btn-ghost">Sign In</a>
         <a href="${pageContext.request.contextPath}/register" class="btn-nav-primary">Get Started -></a>
     </div>
+    <button class="nav-menu-btn" id="navMenuBtn" aria-label="Toggle menu" aria-expanded="false">☰</button>
 </nav>
+<div class="mobile-nav" id="mobileNav">
+    <a href="#features">Features</a>
+    <a href="#gallery">Campus</a>
+    <a href="#how">How it Works</a>
+    <a href="${pageContext.request.contextPath}/about">About</a>
+    <a href="${pageContext.request.contextPath}/contact">Contact</a>
+    <div class="mobile-nav-actions">
+        <a href="${pageContext.request.contextPath}/login" class="btn-ghost">Sign In</a>
+        <a href="${pageContext.request.contextPath}/register" class="btn-nav-primary">Get Started</a>
+    </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -809,9 +880,29 @@
 
     // Navbar scroll
     const navbar = document.getElementById('navbar');
+    const navMenuBtn = document.getElementById('navMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
     const syncNavbar = () => navbar.classList.toggle('scrolled', window.scrollY > 40);
     syncNavbar();
     window.addEventListener('scroll', syncNavbar, { passive: true });
+    if (navMenuBtn && mobileNav) {
+        navMenuBtn.addEventListener('click', () => {
+            const isOpen = mobileNav.classList.toggle('open');
+            navMenuBtn.setAttribute('aria-expanded', String(isOpen));
+        });
+        mobileNav.querySelectorAll('a').forEach((a) => {
+            a.addEventListener('click', () => {
+                mobileNav.classList.remove('open');
+                navMenuBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 640) {
+                mobileNav.classList.remove('open');
+                navMenuBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
 
     // Scroll reveal
     const obs = new IntersectionObserver(entries=>{

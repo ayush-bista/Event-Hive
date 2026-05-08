@@ -5,6 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/favicon.png">
     <title>My Dashboard - Event Hive</title>
@@ -518,13 +519,7 @@
                                     <c:when test="${ev.status == 'completed'}"><span class="badge badge-muted">Completed</span></c:when>
                                     <c:otherwise><span class="badge badge-rose">Cancelled</span></c:otherwise>
                                 </c:choose>
-                                <c:if test="${ev.status == 'upcoming' || ev.status == 'ongoing'}">
-                                    <form method="post" action="${pageContext.request.contextPath}/student/enroll" style="display:inline">
-                                        <input type="hidden" name="action" value="enroll">
-                                        <input type="hidden" name="eventId" value="${ev.eventId}">
-                                        <button type="submit" class="btn btn-primary btn-sm latest-event-view-btn">Apply</button>
-                                    </form>
-                                </c:if>
+                                <a href="${pageContext.request.contextPath}/student/events" class="btn btn-primary btn-sm latest-event-view-btn">View</a>
                             </div>
                         </div>
                     </div>
