@@ -14,7 +14,8 @@ public class EnrollmentDAO {
 
     // ── Enroll student in event ───────────────────────────────────────────
     public boolean enroll(int userId, int eventId) throws SQLException {
-        String sql = "INSERT INTO enrollments (user_id, event_id, status) VALUES (?, ?, 'pending')";
+        String sql = "INSERT INTO enrollments (user_id, event_id, status) VALUES (?, ?, 'pending') " +
+                "ON DUPLICATE KEY UPDATE status='pending', enrolled_at=CURRENT_TIMESTAMP";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);

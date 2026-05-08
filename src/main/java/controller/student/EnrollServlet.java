@@ -19,7 +19,22 @@ private final EventDAO      eventDAO      = new EventDAO();
 
         User   user    = (User) req.getSession().getAttribute("loggedInUser");
         String action  = req.getParameter("action");
-        int    eventId = Integer.parseInt(req.getParameter("eventId"));
+        String eventIdRaw = req.getParameter("eventId");
+        int eventId;
+
+        if (user == null) {
+            req.getSession().setAttribute("flashError", "Your session expired. Please sign in again.");
+            res.sendRedirect(req.getContextPath() + "/login");
+            return;
+        }
+
+        try {
+            eventId = Integer.parseInt(eventIdRaw);
+        } catch (Exception e) {
+            req.getSession().setAttribute("flashError", "Invalid event request.");
+            res.sendRedirect(req.getContextPath() + "/student/events");
+            return;
+        }
 
         try {
             if ("enroll".equals(action)) {

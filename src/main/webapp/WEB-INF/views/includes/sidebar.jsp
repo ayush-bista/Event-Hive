@@ -100,15 +100,19 @@
 
         <% } %>
 
+        <% if (!isAdmin) { %>
         <div class="nav-section-label">Pages</div>
-        <a href="<%= ctx %>/about" class="nav-link">
+        <a href="<%= ctx %>/student/about"
+           class="nav-link <%= uri.contains("/student/about") ? "active" : "" %>">
             <span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></span>
             About
         </a>
-        <a href="<%= ctx %>/contact" class="nav-link">
+        <a href="<%= ctx %>/student/contact"
+           class="nav-link <%= uri.contains("/student/contact") ? "active" : "" %>">
             <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 6.5h16v10A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-10Z"/><path d="m4.5 7 7.5 6 7.5-6"/></svg></span>
             Contact
         </a>
+        <% } %>
 
         <!-- Logout at bottom of nav -->
         <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border);">

@@ -87,9 +87,7 @@ img { max-width: 100%; display: block; }
 .sidebar-logo .logo-text {
   font-family: 'Manrope', sans-serif;
   font-size: 1.35rem; font-weight: 800;
-  background: linear-gradient(135deg, var(--violet), var(--cyan));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #000000;
 }
 .sidebar-logo .logo-sub {
   font-size: 0.68rem; color: var(--text-muted);

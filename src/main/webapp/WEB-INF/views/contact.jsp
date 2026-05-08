@@ -7,20 +7,24 @@
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/favicon.png">
   <title>Contact Us</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
   <style>
     body { background: #f5f7fb; color: #111827; }
+    :root {
+      --content-max: 1280px;
+      --edge-space: max(64px, calc((100vw - var(--content-max)) / 2));
+    }
 
     .public-nav {
       background: #fff; border-bottom: 1px solid rgba(15,23,42,0.1);
-      padding: 0 48px; height: 64px;
+      padding: 0 var(--edge-space); height: 64px;
       display: flex; align-items: center; justify-content: space-between;
       position: sticky; top: 0; z-index: 100;
       box-shadow: 0 1px 8px rgba(15,23,42,0.06);
     }
     .public-nav-logo {
       font-family: 'Manrope', sans-serif; font-size: 1.3rem; font-weight: 800;
-      background: linear-gradient(135deg, #7C5CFC, #38BDF8);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      color: #111827;
     }
 
     .contact-hero {
@@ -70,6 +74,7 @@
     .info-icon.violet { background: rgba(124,92,252,0.1); }
     .info-icon.gold   { background: rgba(245,158,11,0.1); }
     .info-icon.green  { background: rgba(16,185,129,0.1); }
+    .info-icon iconify-icon { font-size: 1.22rem; line-height: 1; }
     .info-card h4 {
       font-family: 'Manrope', sans-serif;
       font-size: 0.9rem; font-weight: 700; color: #111827; margin-bottom: 4px;
@@ -84,6 +89,7 @@
     .hours-card h4 {
       font-family: 'Manrope', sans-serif;
       font-size: 0.9rem; font-weight: 700; margin-bottom: 14px;
+      display: inline-flex; align-items: center; gap: 8px;
     }
     .hours-row {
       display: flex; justify-content: space-between;
@@ -118,7 +124,6 @@
   <span class="public-nav-logo">Event Hive</span>
   <div class="d-flex gap-8 align-center">
     <a href="${pageContext.request.contextPath}/" class="btn btn-outline btn-sm">Home</a>
-    <a href="${pageContext.request.contextPath}/about" class="btn btn-outline btn-sm">About</a>
     <a href="${pageContext.request.contextPath}/login" class="btn btn-primary btn-sm">Sign In</a>
   </div>
 </nav>
@@ -137,10 +142,10 @@
     <div class="form-subtitle">Fill in your details below and we'll get back to you shortly.</div>
 
     <% if (request.getAttribute("error") != null) { %>
-    <div class="alert alert-error mb-16">⚠ ${error}</div>
+    <div class="alert alert-error mb-16"><iconify-icon icon="tabler:alert-triangle"></iconify-icon> ${error}</div>
     <% } %>
     <% if (request.getAttribute("success") != null) { %>
-    <div class="alert alert-success mb-16">✔ ${success}</div>
+    <div class="alert alert-success mb-16"><iconify-icon icon="tabler:circle-check"></iconify-icon> ${success}</div>
     <% } %>
 
     <form method="post" action="${pageContext.request.contextPath}/contact" novalidate>
@@ -182,31 +187,31 @@
   <div class="contact-info">
 
     <div class="info-card">
-      <div class="info-icon violet">📍</div>
+      <div class="info-icon violet"><iconify-icon icon="tabler:map-pin"></iconify-icon></div>
       <div>
         <h4>Address</h4>
-        <p>Itahari International College<br>Itahari-6, Sunsari<br>Province No. 1, Nepal</p>
+        <p>Itahari International College<br>Sundarharaincha-10, Dulari<br>Province No. 1, Nepal</p>
       </div>
     </div>
 
     <div class="info-card">
-      <div class="info-icon gold">📧</div>
+      <div class="info-icon gold"><iconify-icon icon="tabler:mail"></iconify-icon></div>
       <div>
         <h4>Email</h4>
-        <p>info@iic.edu.np<br>For support: support@eventhive.iic.edu.np</p>
+        <p>email@iic.edu.np<br>For support: support@eventhive.iic.edu.np</p>
       </div>
     </div>
 
     <div class="info-card">
-      <div class="info-icon green">📞</div>
+      <div class="info-icon green"><iconify-icon icon="tabler:phone"></iconify-icon></div>
       <div>
         <h4>Phone</h4>
-        <p>+977-025-580900<br>+977-025-580901</p>
+        <p>+977-9812345678<br>+977-9801234567</p>
       </div>
     </div>
 
     <div class="hours-card">
-      <h4>📅 Office Hours</h4>
+      <h4><iconify-icon icon="tabler:clock-hour-4"></iconify-icon> Office Hours</h4>
       <div class="hours-row"><span>Sunday – Friday</span><span>9:00 AM – 5:00 PM</span></div>
       <div class="hours-row"><span>Saturday</span><span>10:00 AM – 2:00 PM</span></div>
       <div class="hours-row"><span>Public Holidays</span><span>Closed</span></div>

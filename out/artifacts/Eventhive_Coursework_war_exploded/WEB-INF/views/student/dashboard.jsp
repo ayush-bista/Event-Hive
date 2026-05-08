@@ -399,24 +399,13 @@
             <% if (flashErr != null) { %><div class="alert alert-error mb-16">! <%= flashErr %></div><% } %>
 
             <c:set var="approvedCount" value="0"/>
-            <c:set var="futureCount" value="0"/>
-            <c:set var="historyCount" value="0"/>
             <c:forEach var="en" items="${myEnrollments}">
                 <c:if test="${en.status == 'approved'}">
                     <c:set var="approvedCount" value="${approvedCount + 1}"/>
                 </c:if>
-                <c:choose>
-                    <c:when test="${en.eventStatus == 'upcoming' || en.eventStatus == 'ongoing'}">
-                        <c:set var="futureCount" value="${futureCount + 1}"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="historyCount" value="${historyCount + 1}"/>
-                    </c:otherwise>
-                </c:choose>
             </c:forEach>
             <c:set var="approvalRate" value="${myEnrollments.size() == 0 ? 0 : (approvedCount * 100) / myEnrollments.size()}"/>
             <c:set var="notApprovedCount" value="${myEnrollments.size() - approvedCount}"/>
-            <c:set var="futureRate" value="${myEnrollments.size() == 0 ? 0 : (futureCount * 100) / myEnrollments.size()}"/>
 
             <!-- Student overview -->
             <div class="student-dashboard-overview">

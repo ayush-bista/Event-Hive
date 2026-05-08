@@ -7,14 +7,19 @@
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/favicon.png">
   <title>About Us</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
   <style>
     /* ── About page specific styles ── */
     body { background: #f5f7fb; color: #111827; }
+    :root {
+      --content-max: 1280px;
+      --edge-space: max(64px, calc((100vw - var(--content-max)) / 2));
+    }
 
     .public-nav {
       background: #fff;
       border-bottom: 1px solid rgba(15,23,42,0.1);
-      padding: 0 48px;
+      padding: 0 var(--edge-space);
       height: 64px;
       display: flex;
       align-items: center;
@@ -25,9 +30,7 @@
     .public-nav-logo {
       font-family: 'Manrope', sans-serif;
       font-size: 1.3rem; font-weight: 800;
-      background: linear-gradient(135deg, #7C5CFC, #38BDF8);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #111827;
     }
     .public-nav-links { display: flex; align-items: center; gap: 12px; }
 
@@ -79,6 +82,7 @@
     }
     .mission-icon.violet { background: rgba(124,92,252,0.12); }
     .mission-icon.gold   { background: rgba(245,158,11,0.12); }
+    .mission-icon iconify-icon { font-size: 1.45rem; line-height: 1; }
     .mission-card h3 {
       font-family: 'Manrope', sans-serif;
       font-size: 1.15rem; font-weight: 800; margin-bottom: 10px; color: #111827;
@@ -129,6 +133,14 @@
       font-family: 'Manrope', sans-serif;
       font-size: 1.6rem; font-weight: 800; color: #fff;
       margin: 0 auto 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .team-card .team-name {
       font-family: 'Manrope', sans-serif;
@@ -154,6 +166,7 @@
       box-shadow: 0 2px 10px rgba(15,23,42,0.05);
     }
     .feature-item-icon { font-size: 1.5rem; margin-bottom: 12px; }
+    .feature-item-icon iconify-icon { font-size: 1.5rem; line-height: 1; }
     .feature-item h4 {
       font-family: 'Manrope', sans-serif;
       font-size: 0.95rem; font-weight: 700; color: #111827; margin-bottom: 6px;
@@ -174,6 +187,17 @@
       font-size: 1.4rem; font-weight: 800; color: #111827; margin-bottom: 10px;
     }
     .college-card p { font-size: 0.92rem; color: #6b7280; line-height: 1.72; margin-bottom: 20px; }
+    .college-photo {
+      width: 220px;
+      max-width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(15,23,42,0.08);
+      box-shadow: 0 6px 20px rgba(15,23,42,0.12);
+      display: block;
+      margin: 0 auto;
+    }
     .college-badge {
       background: rgba(124,92,252,0.08);
       border: 1px solid rgba(124,92,252,0.2);
@@ -181,6 +205,7 @@
       font-size: 0.76rem; font-weight: 600; color: #7C5CFC;
       display: inline-flex; align-items: center; gap: 6px;
     }
+    .college-badge iconify-icon { font-size: 0.88rem; line-height: 1; }
 
     /* Footer */
     .public-footer {
@@ -218,7 +243,6 @@
   <span class="public-nav-logo">Event Hive</span>
   <div class="public-nav-links">
     <a href="${pageContext.request.contextPath}/" class="btn btn-outline btn-sm">Home</a>
-    <a href="${pageContext.request.contextPath}/contact" class="btn btn-outline btn-sm">Contact</a>
     <a href="${pageContext.request.contextPath}/login" class="btn btn-primary btn-sm">Sign In</a>
   </div>
 </nav>
@@ -237,7 +261,7 @@
   <!-- Mission & Vision -->
   <div class="mission-grid">
     <div class="mission-card">
-      <div class="mission-icon violet">🎯</div>
+      <div class="mission-icon violet"><iconify-icon icon="tabler:target-arrow"></iconify-icon></div>
       <h3>Our Mission</h3>
       <p>
         To create a centralized, efficient, and user-friendly platform that connects
@@ -246,7 +270,7 @@
       </p>
     </div>
     <div class="mission-card">
-      <div class="mission-icon gold">👁</div>
+      <div class="mission-icon gold"><iconify-icon icon="tabler:eye"></iconify-icon></div>
       <h3>Our Vision</h3>
       <p>
         To build a campus culture where every student is informed, engaged, and
@@ -281,25 +305,37 @@
   <div class="section-sub">TVA Squad</div>
   <div class="team-grid">
     <div class="team-card">
-      <div class="team-avatar">A</div>
+      <div class="team-avatar">
+        <img src="${pageContext.request.contextPath}https://www.ayushbista.me/IMG_0646%20(2).jpg" alt="Ayush Bista" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">A</span>
+      </div>
       <div class="team-name">Ayush Bista</div>
 <%--      <div class="team-role">Team Leader</div>--%>
 <%--      <div class="team-id">ID: 24045833</div>--%>
     </div>
     <div class="team-card">
-      <div class="team-avatar">S</div>
+      <div class="team-avatar">
+        <img src="${pageContext.request.contextPath}/assets/team/suprim.jpg" alt="Suprim Giri" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">S</span>
+      </div>
       <div class="team-name">Suprim Giri</div>
 <%--      <div class="team-role">Backend Developer</div>--%>
 <%--      <div class="team-id">ID: 24046116</div>--%>
     </div>
     <div class="team-card">
-      <div class="team-avatar">D</div>
+      <div class="team-avatar">
+        <img src="${pageContext.request.contextPath}/assets/team/darsana.jpg" alt="Darsana Bhandari" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">D</span>
+      </div>
       <div class="team-name">Darsana Bhandari</div>
 <%--      <div class="team-role">Student Portal</div>--%>
 <%--      <div class="team-id">ID: 24045861</div>--%>
     </div>
     <div class="team-card">
-      <div class="team-avatar">A</div>
+      <div class="team-avatar">
+        <img src="${pageContext.request.contextPath}/assets/team/akisha.jpg" alt="Akisha Bhujel" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">A</span>
+      </div>
       <div class="team-name">Akisha Bhujel</div>
 <%--      <div class="team-role">Frontend & UI</div>--%>
 <%--      <div class="team-id">ID: 24045800</div>--%>
@@ -310,84 +346,49 @@
   <div class="section-heading">System Features</div>
   <div class="features-grid-about">
     <div class="feature-item">
-      <div class="feature-item-icon">🔐</div>
+      <div class="feature-item-icon"><iconify-icon icon="tabler:lock"></iconify-icon></div>
       <h4>Secure Authentication</h4>
       <p>SHA-256 password encryption, session management, remember-me cookie, and role-based access control.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-item-icon">📅</div>
+      <div class="feature-item-icon"><iconify-icon icon="tabler:calendar-event"></iconify-icon></div>
       <h4>Event Management</h4>
       <p>Full CRUD for events with banner image upload, category, venue, deadline, capacity, and status control.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-item-icon">🎫</div>
+      <div class="feature-item-icon"><iconify-icon icon="tabler:ticket"></iconify-icon></div>
       <h4>Student Enrollment</h4>
       <p>Students can browse, search, filter, apply for events, and track approval status in real time.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-item-icon">👥</div>
+      <div class="feature-item-icon"><iconify-icon icon="tabler:users"></iconify-icon></div>
       <h4>User Management</h4>
       <p>Admin can approve, reject, and delete student accounts with full control over registration requests.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-item-icon">📊</div>
+      <div class="feature-item-icon"><iconify-icon icon="tabler:chart-bar"></iconify-icon></div>
       <h4>Reports & Analytics</h4>
       <p>Admin dashboard with participation charts, popular events, enrollment stats, and monthly trends.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-item-icon">✉</div>
+      <div class="feature-item-icon"><iconify-icon icon="tabler:mail"></iconify-icon></div>
       <h4>Contact System</h4>
       <p>Public contact form with admin inbox, read/unread tracking, and message management.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-item-icon">📱</div>
+      <div class="feature-item-icon"><iconify-icon icon="tabler:device-mobile"></iconify-icon></div>
       <h4>Responsive Design</h4>
       <p>Fully responsive using CSS Flexbox and media queries, no Bootstrap used, pure custom CSS.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-item-icon">🛡</div>
+      <div class="feature-item-icon"><iconify-icon icon="tabler:shield-check"></iconify-icon></div>
       <h4>Input Validation</h4>
       <p>Server-side validation with regex patterns and meaningful error messages on every form.</p>
     </div>
     <div class="feature-item">
-      <div class="feature-item-icon">🗄</div>
+      <div class="feature-item-icon"><iconify-icon icon="tabler:layout-grid"></iconify-icon></div>
       <h4>MVC Architecture</h4>
       <p>Clean separation of Model, View, and Controller layers with DAO pattern and utility classes.</p>
-    </div>
-  </div>
-
-  <!-- Tech Stack -->
-  <div class="section-heading">Technologies Used</div>
-  <div class="features-grid-about" style="grid-template-columns: repeat(3,1fr);">
-    <div class="feature-item">
-      <div class="feature-item-icon">☕</div>
-      <h4>Java & Jakarta EE</h4>
-      <p>Servlets and Filters using Jakarta EE 10 annotations - @WebServlet, @WebFilter, @MultipartConfig.</p>
-    </div>
-    <div class="feature-item">
-      <div class="feature-item-icon">📄</div>
-      <h4>JSP & JSTL</h4>
-      <p>JavaServer Pages with JSTL core and functions tags for dynamic rendering and data display.</p>
-    </div>
-    <div class="feature-item">
-      <div class="feature-item-icon">🗃</div>
-      <h4>MySQL Database</h4>
-      <p>Relational database with 6 normalised tables, foreign keys, and JDBC PreparedStatements.</p>
-    </div>
-    <div class="feature-item">
-      <div class="feature-item-icon">🎨</div>
-      <h4>Custom CSS</h4>
-      <p>Handcrafted CSS using Flexbox, Grid, CSS variables, and media queries.</p>
-    </div>
-    <div class="feature-item">
-      <div class="feature-item-icon">⚡</div>
-      <h4>Apache Tomcat 10</h4>
-      <p>Deployed on Apache Tomcat 10.x as a WAR application with Tomcat's servlet container.</p>
-    </div>
-    <div class="feature-item">
-      <div class="feature-item-icon">🔧</div>
-      <h4>Maven Build</h4>
-      <p>Maven project management with pom.xml dependency management and WAR packaging.</p>
     </div>
   </div>
 
@@ -402,17 +403,16 @@
         and Technologies module, Spring Semester 2026.
       </p>
       <div class="d-flex gap-8" style="flex-wrap:wrap;">
-        <span class="college-badge">📍 Itahari, Nepal</span>
-        <span class="college-badge">🎓 London Metropolitan University</span>
-        <span class="college-badge">💻 CS5054NT</span>
-        <span class="college-badge">📅 Spring 2026</span>
+        <span class="college-badge"><iconify-icon icon="tabler:map-pin"></iconify-icon> Itahari, Nepal</span>
+        <span class="college-badge"><iconify-icon icon="tabler:school"></iconify-icon> London Metropolitan University</span>
+        <span class="college-badge"><iconify-icon icon="tabler:code"></iconify-icon> CS5054NT</span>
+        <span class="college-badge"><iconify-icon icon="tabler:calendar"></iconify-icon> Spring 2026</span>
       </div>
     </div>
     <div style="text-align:center;">
-      <div style="font-size:4rem; margin-bottom:8px;">🏫</div>
-      <div style="font-family:'Manrope',sans-serif; font-size:0.82rem; color:#6b7280; font-weight:600;">
-        Itahari International<br>College
-      </div>
+      <img src="${pageContext.request.contextPath}/assets/iic-college-building.png"
+           alt="Itahari International College"
+           class="college-photo">
     </div>
   </div>
 
