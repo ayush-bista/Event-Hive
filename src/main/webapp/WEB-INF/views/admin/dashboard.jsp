@@ -110,8 +110,8 @@
                         <h3>Student Participation</h3>
                         <div class="participation-ring" style="--participation:${participationRate};">
                             <div>
-                                <strong>${participationRate}%</strong>
-                                <span>OVERALL</span>
+                                <strong>${participatingStudents}</strong>
+                                <span>STUDENTS</span>
                             </div>
                         </div>
                         <div class="participation-legend">

@@ -114,8 +114,8 @@ img { max-width: 100%; display: block; }
 }
 .nav-link:hover { background: #eef6fb; color: #111827; }
 .nav-link.active {
-  background: #36a9d6; color: #ffffff;
-  box-shadow: 0 8px 18px rgba(54,169,214,0.22);
+  background: #000000; color: #ffffff;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.22);
 }
 .nav-link .nav-icon {
   width: 20px; height: 20px;
@@ -512,21 +512,22 @@ textarea.form-control { resize: vertical; min-height: 96px; }
 }
 
 /* Latest events grid */
-.latest-events-grid { display: grid; grid-template-columns: repeat(3, minmax(260px, 1fr)); gap: 28px; }
-.latest-events-grid .event-card { border-radius: 24px; border: 1px solid #d9dee7; min-height: 520px; background: #ffffff; }
-.latest-events-grid .event-card:hover { border-color: #cfd6e2; box-shadow: 0 16px 32px rgba(15,23,42,0.08); }
-.latest-events-grid .event-card-banner { height: 190px; background: linear-gradient(180deg, #8b72fb 0%, #c7c0f3 45%, #111827 100%); color: #111827; font-size: 3.8rem; }
+.latest-events-grid { display: grid; grid-template-columns: repeat(3, minmax(260px, 1fr)); gap: 22px; }
+.latest-events-grid .event-card { border-radius: 26px; border: 1px solid #cfd6e2; min-height: 0; background: #ffffff; overflow: hidden; }
+.latest-events-grid .event-card:hover { border-color: #c8d0dc; box-shadow: 0 10px 22px rgba(15,23,42,0.06); }
+.latest-events-grid .event-card-banner { height: 170px; background: linear-gradient(180deg, #8b72fb 0%, #c7c0f3 45%, #111827 100%); color: #111827; font-size: 3.5rem; }
 .latest-events-grid .event-card-banner::after { display: block; background: linear-gradient(to bottom, transparent 45%, rgba(15,23,42,0.35)); }
-.latest-events-grid .event-card-body { padding: 30px 26px 24px; }
-.latest-events-grid .event-card-category { color: #9d82fd; font-size: 0.88rem; font-weight: 800; letter-spacing: 0.08em; margin-bottom: 14px; }
-.latest-events-grid .event-card-title { font-size: 1.45rem; line-height: 1.18; margin-bottom: 18px; }
-.latest-events-grid .event-meta { gap: 13px; font-size: 1.1rem; color: #5f6977; margin-bottom: 24px; }
+.latest-events-grid .event-card-body { padding: 24px 22px 20px; }
+.latest-events-grid .event-card-category { color: #8c73f6; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; margin-bottom: 10px; }
+.latest-events-grid .event-card-title { font-size: 2.75rem; line-height: 1.16; margin-bottom: 14px; font-weight: 700; }
+.latest-events-grid .event-meta { gap: 8px; font-size: 0.7rem; color: #58657a; margin-bottom: 16px; }
 .latest-events-grid .event-meta span { display: block; }
-.latest-events-grid .event-card-footer { padding-top: 20px; }
-.latest-events-grid .badge { padding: 6px 15px; font-size: 0.95rem; border-radius: 999px; }
+.latest-events-grid .event-card-description { font-size: 1.6rem; color: #111827; line-height: 1.22; margin-bottom: 10px; }
+.latest-events-grid .event-card-footer { padding-top: 16px; border-top: 1px solid #d8dde7; }
+.latest-events-grid .badge { padding: 8px 17px; font-size: 0.7rem; border-radius: 999px; font-weight: 700; }
 .latest-event-view-btn {
-  min-width: 84px; min-height: 46px; border-radius: 11px;
-  background: #754df6 !important; color: #ffffff !important; font-size: 1rem;
+  min-width: 86px; min-height: 42px; border-radius: 14px;
+  background: #754df6 !important; color: #ffffff !important; font-size: 0.72rem;
 }
 .latest-event-view-btn:hover { background: #623de8 !important; color: #ffffff !important; }
 

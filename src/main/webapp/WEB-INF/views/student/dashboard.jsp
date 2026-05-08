@@ -270,14 +270,97 @@
         .student-dashboard-page .legend-dot { width:14px; height:14px; border-radius:50%; display:inline-block; }
         .student-dashboard-page .legend-dot.present { background:#a83eea; }
         .student-dashboard-page .legend-dot.absent { background:#ff8b13; }
+
+        /* Latest events cards (dashboard-only overrides) */
+        .student-dashboard-page .latest-events-grid {
+            display:grid;
+            grid-template-columns:repeat(3, minmax(0, 1fr));
+            gap:18px;
+            align-items:stretch;
+        }
+        .student-dashboard-page .latest-events-grid .event-card {
+            min-height:0;
+            border-radius:12px;
+            border:1px solid #e9edf3;
+            box-shadow:0 10px 24px rgba(15,23,42,.06);
+            overflow:hidden;
+            background:#fff;
+        }
+        .student-dashboard-page .latest-events-grid .event-card-banner {
+            height:auto;
+            aspect-ratio:16 / 9;
+            min-height:0;
+        }
+        .student-dashboard-page .latest-events-grid .event-card-banner img {
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+        .student-dashboard-page .latest-events-grid .event-card-body {
+            padding:14px 14px 12px;
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+        }
+        .student-dashboard-page .latest-events-grid .event-card-category {
+            font-size:.8rem;
+            letter-spacing:.08em;
+            margin-bottom:2px;
+        }
+        .student-dashboard-page .latest-events-grid .event-card-title {
+            font-size:1.05rem;
+            line-height:1.3;
+            margin:0;
+            display:-webkit-box;
+            -webkit-line-clamp:2;
+            -webkit-box-orient:vertical;
+            overflow:hidden;
+        }
+        .student-dashboard-page .latest-events-grid .event-card-description {
+            font-size:.84rem;
+            line-height:1.45;
+            color:#6b7280;
+            margin:0;
+            display:-webkit-box;
+            -webkit-line-clamp:2;
+            -webkit-box-orient:vertical;
+            overflow:hidden;
+        }
+        .student-dashboard-page .latest-events-grid .event-meta {
+            margin-top:2px;
+            gap:4px;
+        }
+        .student-dashboard-page .latest-events-grid .event-meta span {
+            font-size:.82rem;
+            color:#64748b;
+        }
+        .student-dashboard-page .latest-events-grid .event-card-footer {
+            margin-top:8px;
+            padding-top:10px;
+            border-top:1px solid #eef2f7;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+        }
+        .student-dashboard-page .latest-events-grid .latest-event-view-btn {
+            min-width:82px;
+            height:36px;
+            padding:0 14px;
+            border-radius:10px;
+            font-size:.95rem;
+            font-weight:700;
+        }
         @media (max-width:1200px) {
             .student-dashboard-page .student-dashboard-overview { grid-template-columns:1fr; }
             .student-dashboard-page .student-attendance-card { min-height:auto; }
+            .student-dashboard-page .latest-events-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
         }
         @media (max-width:900px) {
             .student-dashboard-page .student-profile-banner { grid-template-columns:auto minmax(0,1fr); }
             .student-dashboard-page .student-profile-action { grid-column:1 / -1; justify-self:start; }
             .student-dashboard-page .student-metric-grid { grid-template-columns:1fr; }
+            .student-dashboard-page .latest-events-grid .event-card-title { font-size:1rem; }
         }
         @media (max-width:600px) {
             .student-dashboard-page .student-profile-banner { padding:24px; grid-template-columns:1fr; }
@@ -287,6 +370,8 @@
             .student-dashboard-page .student-donut { width:180px; height:180px; }
             .student-dashboard-page .student-donut-center { width:104px; height:104px; }
             .student-dashboard-page .student-donut-legend { flex-direction:column; align-items:center; gap:10px; }
+            .student-dashboard-page .latest-events-grid { grid-template-columns:1fr; gap:14px; }
+            .student-dashboard-page .latest-events-grid .event-card-body { padding:12px; }
         }
     </style>
 </head>
@@ -330,6 +415,7 @@
                 </c:choose>
             </c:forEach>
             <c:set var="approvalRate" value="${myEnrollments.size() == 0 ? 0 : (approvedCount * 100) / myEnrollments.size()}"/>
+            <c:set var="notApprovedCount" value="${myEnrollments.size() - approvedCount}"/>
             <c:set var="futureRate" value="${myEnrollments.size() == 0 ? 0 : (futureCount * 100) / myEnrollments.size()}"/>
 
             <!-- Student overview -->
@@ -382,9 +468,9 @@
                         <div class="student-metric-card metric-cyan">
                             <div class="student-metric-top">
                                 <div class="student-metric-icon">👍</div>
-                                <div><strong>${approvalRate}%</strong><span>Approved</span></div>
+                                <div><strong>${approvedCount}</strong><span>Approved</span></div>
                             </div>
-                            <div class="student-metric-title">Approval Rate</div>
+                            <div class="student-metric-title">Approved Enrollments</div>
                             <div class="student-metric-text">${approvedCount} approved out of ${myEnrollments.size()} enrollment requests.</div>
                         </div>
                     </div>
@@ -405,8 +491,8 @@
                         </div>
                     </div>
                     <div class="student-donut-legend">
-                        <div><span class="legend-dot present"></span>Approved <strong>${approvalRate}%</strong></div>
-                        <div><span class="legend-dot absent"></span>Other <strong>${100 - approvalRate}%</strong></div>
+                        <div><span class="legend-dot present"></span>Approved <strong>${approvedCount}</strong></div>
+                        <div><span class="legend-dot absent"></span>Not Approved <strong>${notApprovedCount}</strong></div>
                     </div>
                 </div>
             </div>
@@ -485,8 +571,15 @@
                         <div class="event-card-banner">
                             <c:choose>
                                 <c:when test="${not empty ev.bannerImage && ev.bannerImage != 'default_event.png'}">
-                                    <img src="${pageContext.request.contextPath}/uploads/events/${ev.bannerImage}"
-                                         alt="${ev.title} cover">
+                                    <c:choose>
+                                        <c:when test="${fn:startsWith(ev.bannerImage, 'http://') || fn:startsWith(ev.bannerImage, 'https://')}">
+                                            <img src="${ev.bannerImage}" alt="${ev.title} cover">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="${pageContext.request.contextPath}/uploads/events/${ev.bannerImage}"
+                                                 alt="${ev.title} cover">
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:when>
                                 <c:otherwise>
                                     <span>
@@ -519,7 +612,13 @@
                                     <c:when test="${ev.status == 'completed'}"><span class="badge badge-muted">Completed</span></c:when>
                                     <c:otherwise><span class="badge badge-rose">Cancelled</span></c:otherwise>
                                 </c:choose>
-                                <a href="${pageContext.request.contextPath}/student/events" class="btn btn-primary btn-sm latest-event-view-btn">View</a>
+                                <c:if test="${ev.status == 'upcoming' || ev.status == 'ongoing'}">
+                                    <form method="post" action="${pageContext.request.contextPath}/student/enroll" style="display:inline">
+                                        <input type="hidden" name="action" value="enroll">
+                                        <input type="hidden" name="eventId" value="${ev.eventId}">
+                                        <button type="submit" class="btn btn-primary btn-sm latest-event-view-btn">Apply</button>
+                                    </form>
+                                </c:if>
                             </div>
                         </div>
                     </div>

@@ -154,7 +154,7 @@
                 <div class="bar-value">${entry.value}</div>
                 <div class="bar-fill"
                      style="height:${monthlyParticipation.size() > 0 && entry.value > 0 ?
-                             (entry.value * 120 / (monthlyParticipation.values().stream().mapToInt(Integer::intValue).max().orElse(1))) : 4}px;">
+                             (entry.value * 120 / maxMonthlyParticipation) : 4}px;">
                 </div>
                 <div class="bar-label">${entry.key}</div>
               </div>

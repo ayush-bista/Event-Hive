@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,8 +67,15 @@
                                 <div class="event-card-banner">
                                     <c:choose>
                                         <c:when test="${not empty ev.bannerImage && ev.bannerImage != 'default_event.png'}">
-                                            <img src="${pageContext.request.contextPath}/uploads/events/${ev.bannerImage}"
-                                                 alt="${ev.title} cover">
+                                            <c:choose>
+                                                <c:when test="${fn:startsWith(ev.bannerImage, 'http://') || fn:startsWith(ev.bannerImage, 'https://')}">
+                                                    <img src="${ev.bannerImage}" alt="${ev.title} cover">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="${pageContext.request.contextPath}/uploads/events/${ev.bannerImage}"
+                                                         alt="${ev.title} cover">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:when>
                                         <c:otherwise>
                                             <span>

@@ -21,6 +21,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.UUID;
+import java.net.URI;
+import java.net.URISyntaxException;
 @WebServlet("/admin/events")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024,
@@ -127,7 +129,7 @@ private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
             event.setEventTime(parseTimeFlexible(timeStr));
             event.setDeadline(parseDateFlexible(deadStr));
             event.setCapacity(capStr != null && !capStr.isEmpty() ? Integer.parseInt(capStr) : 0);
-            String bannerImage = saveBannerImage(req);
+            String bannerImage = resolveBannerImage(req);
             event.setBannerImage(ValidationUtil.isNotEmpty(bannerImage)
                     ? bannerImage
                     : (ValidationUtil.isNotEmpty(existingBanner) ? existingBanner : "default_event.png"));
@@ -147,7 +149,15 @@ private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
             req.getRequestDispatcher("/WEB-INF/views/admin/event_form.jsp").forward(req, res);
         }
     }
-private String saveBannerImage(HttpServletRequest req) throws IOException, ServletException {
+private String resolveBannerImage(HttpServletRequest req) throws IOException, ServletException {
+        String bannerImageUrl = ValidationUtil.sanitize(req.getParameter("bannerImageUrl"));
+        if (ValidationUtil.isNotEmpty(bannerImageUrl)) {
+            if (!isValidImageUrl(bannerImageUrl)) {
+                throw new IllegalArgumentException("Cover image URL must be a valid http/https image link.");
+            }
+            return bannerImageUrl;
+        }
+
         Part filePart = req.getPart("bannerImage");
         if (filePart == null || filePart.getSize() == 0) {
             return null;
@@ -177,6 +187,34 @@ private String saveBannerImage(HttpServletRequest req) throws IOException, Servl
         String fileName = UUID.randomUUID() + extension;
         filePart.write(uploadDir.resolve(fileName).toString());
         return fileName;
+    }
+private boolean isValidImageUrl(String rawUrl) {
+        try {
+            URI uri = new URI(rawUrl);
+            String scheme = uri.getScheme();
+            String host = uri.getHost();
+            if (host == null || scheme == null) {
+                return false;
+            }
+
+            String lowerScheme = scheme.toLowerCase(Locale.ENGLISH);
+            if (!"http".equals(lowerScheme) && !"https".equals(lowerScheme)) {
+                return false;
+            }
+
+            String path = uri.getPath();
+            if (path == null) {
+                return false;
+            }
+
+            String lowerPath = path.toLowerCase(Locale.ENGLISH);
+            return lowerPath.endsWith(".jpg")
+                    || lowerPath.endsWith(".jpeg")
+                    || lowerPath.endsWith(".png")
+                    || lowerPath.endsWith(".webp");
+        } catch (URISyntaxException e) {
+            return false;
+        }
     }
 private Date parseDateFlexible(String raw) {
         if (raw == null || raw.trim().isEmpty()) {

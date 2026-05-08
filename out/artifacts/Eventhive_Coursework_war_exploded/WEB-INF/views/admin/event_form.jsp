@@ -52,6 +52,9 @@
           <div class="form-group">
             <label class="form-label">Cover Image</label>
             <input type="file" name="bannerImage" class="form-control" accept="image/png,image/jpeg,image/webp">
+            <p class="text-sm text-muted mt-8 mb-8">or</p>
+            <input type="url" name="bannerImageUrl" class="form-control"
+                   placeholder="https://example.com/cover-image.jpg">
             <c:if test="${not empty event.bannerImage && event.bannerImage != 'default_event.png'}">
               <p class="text-sm text-muted mt-16">Current image: ${event.bannerImage}</p>
             </c:if>
