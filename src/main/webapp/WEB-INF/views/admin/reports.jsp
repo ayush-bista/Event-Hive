@@ -68,6 +68,18 @@
       padding: 18px 24px; border-bottom: 1px solid rgba(15,23,42,0.08);
       font-family: 'Manrope', sans-serif; font-size: 1rem; font-weight: 800; color: #111827;
     }
+    @media (max-width: 900px) {
+      .reports-grid { grid-template-columns: 1fr; gap: 14px; }
+      .cat-grid { grid-template-columns: 1fr; }
+      .bar-chart { gap: 6px; padding: 0; }
+      .bar-label { font-size: 0.64rem; }
+      .report-card { padding: 18px 14px; border-radius: 12px; }
+      .full-width-card-header { padding: 14px 14px; font-size: 0.95rem; }
+      .stats-grid[style*='repeat(4,1fr)'] { grid-template-columns: 1fr 1fr !important; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid[style*='repeat(4,1fr)'] { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>

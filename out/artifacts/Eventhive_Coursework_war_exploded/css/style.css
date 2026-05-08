@@ -580,11 +580,28 @@ textarea.form-control { resize: vertical; min-height: 96px; }
 
   /* Force full-width app shell on mobile to avoid desktop-width carryover */
   html, body { overflow-x: hidden; }
-  .page-wrapper { display: block; width: 100%; max-width: 100%; }
-  .main-content {
-    margin-left: 0 !important;
+  .page-wrapper {
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
     max-width: 100%;
+  }
+
+  /* Keep mobile topbar out of flex layout so it cannot create a left column */
+  .mobile-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100%;
+    flex: 1 1 100%;
+    padding-top: 56px;
   }
 
   /* Show mobile topbar, hide desktop sidebar by default */
@@ -631,6 +648,13 @@ textarea.form-control { resize: vertical; min-height: 96px; }
 
 /* ── Mobile: 640px ───────────────────────────────────────── */
 @media (max-width: 640px) {
+
+  body { font-size: 15px; }
+  .top-bar-title { font-size: 1rem; }
+  .section-title { font-size: 1rem; }
+  .btn { font-size: 0.82rem; }
+  .form-control { font-size: 0.85rem; }
+  .card { border-radius: 12px; }
 
   /* Page body */
   .page-body { padding: 14px 10px; }
