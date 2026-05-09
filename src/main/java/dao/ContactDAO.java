@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ContactDAO {
 
-    // ── Save a new message from the contact form ──────────────────────────
+    // ── Save a new message from the contact form
     public boolean saveMessage(ContactMessage msg) throws SQLException {
         String sql = "INSERT INTO contact_messages (sender_name, sender_email, subject, message) " +
                 "VALUES (?, ?, ?, ?)";
@@ -26,7 +26,7 @@ public class ContactDAO {
         }
     }
 
-    // ── Get all messages for admin inbox ──────────────────────────────────
+    // ── Get all messages for admin inbox
     public List<ContactMessage> getAllMessages() throws SQLException {
         List<ContactMessage> list = new ArrayList<>();
         String sql = "SELECT * FROM contact_messages ORDER BY sent_at DESC";
@@ -38,7 +38,7 @@ public class ContactDAO {
         return list;
     }
 
-    // ── Count unread messages ─────────────────────────────────────────────
+    // ── Count unread messages
     public int countUnread() throws SQLException {
         String sql = "SELECT COUNT(*) FROM contact_messages WHERE is_read = 0";
         try (Connection conn = DBConnection.getConnection();
@@ -49,7 +49,7 @@ public class ContactDAO {
         return 0;
     }
 
-    // ── Mark message as read ──────────────────────────────────────────────
+    // ── Mark message as read
     public boolean markAsRead(int messageId) throws SQLException {
         String sql = "UPDATE contact_messages SET is_read = 1 WHERE message_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -59,7 +59,7 @@ public class ContactDAO {
         }
     }
 
-    // ── Delete a message ──────────────────────────────────────────────────
+    // ── Delete a message
     public boolean deleteMessage(int messageId) throws SQLException {
         String sql = "DELETE FROM contact_messages WHERE message_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -69,7 +69,7 @@ public class ContactDAO {
         }
     }
 
-    // ── Private mapper ────────────────────────────────────────────────────
+    // ── Private mapper
     private ContactMessage mapRow(ResultSet rs) throws SQLException {
         ContactMessage m = new ContactMessage();
         m.setMessageId(rs.getInt("message_id"));
