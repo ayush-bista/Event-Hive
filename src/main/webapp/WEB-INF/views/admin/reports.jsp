@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%--<%@ taglib prefix="c" uri="jakarta.tags.core" %>--%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,7 +147,7 @@
 
         <!-- Monthly Participation Bar Chart -->
         <div class="report-card">
-          <div class="report-card-title">📊 Monthly Participation (Last 6 Months)</div>
+          <div class="report-card-title">Monthly Participation (Last 6 Months)</div>
           <div class="bar-chart">
             <c:forEach var="entry" items="${monthlyParticipation}">
               <div class="bar-group">
@@ -167,7 +167,7 @@
 
         <!-- Category Breakdown -->
         <div class="report-card">
-          <div class="report-card-title">🏷 Events by Category</div>
+          <div class="report-card-title">Events by Category</div>
           <div class="cat-grid">
             <c:set var="academic"  value="0"/>
             <c:set var="cultural"  value="0"/>
@@ -210,7 +210,7 @@
 
       <!-- Popular Events Table -->
       <div class="full-width-card">
-        <div class="full-width-card-header">🔥 Most Popular Events (by Enrollment Count)</div>
+        <div class="full-width-card-header">Most Popular Events (by Enrollment Count)</div>
         <table>
           <thead>
           <tr>
@@ -270,7 +270,7 @@
 
       <!-- All Events Summary -->
       <div class="full-width-card">
-        <div class="full-width-card-header">📋 All Events Summary</div>
+        <div class="full-width-card-header">All Events Summary</div>
         <table>
           <thead>
           <tr><th>#</th><th>Title</th><th>Category</th><th>Date</th><th>Enrollments</th><th>Status</th></tr>

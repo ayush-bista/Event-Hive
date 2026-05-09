@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/favicon.png">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}https://graphicsfamily.com/wp-content/uploads/edd/2020/04/Event-management-logo-scaled.jpg">
     <title>Event Hive</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
@@ -362,8 +362,8 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 1.35rem; margin-bottom: 18px;
         }
-        .feat-icon iconify-icon,
-        .float-tag-icon iconify-icon {
+        .feat-icon .plain-icon,
+        .float-tag-icon .plain-icon {
             font-size: 1.45rem;
             line-height: 1;
         }
@@ -630,7 +630,7 @@
             <%--            </div>--%>
             <div class="float-tag float-tag-b">
                 <div class="float-tag-inner">
-                    <div class="float-tag-icon" aria-hidden="true"><iconify-icon icon="solar:calendar-mark-bold-duotone"></iconify-icon></div>
+                    <div class="float-tag-icon" aria-hidden="true"><i class="plain-icon fa-solid fa-calendar-check"></i></div>
                     <div class="float-tag-content">
                         <div class="tag-lbl">Registrations Open</div>
                         <div class="tag-val">4 Live Events</div>
@@ -668,32 +668,32 @@
 
         <div class="feat-grid">
             <div class="feat-card reveal">
-                <div class="feat-icon fi-v"><iconify-icon icon="solar:calendar-add-bold-duotone"></iconify-icon></div>
+                <div class="feat-icon fi-v"><i class="plain-icon fa-solid fa-calendar-plus"></i></div>
                 <div class="feat-title">Browse &amp; Enroll</div>
                 <div class="feat-desc">Discover upcoming events, filter by Academic, Cultural, Sports, or Technical categories and apply instantly.</div>
             </div>
             <div class="feat-card reveal">
-                <div class="feat-icon fi-g"><iconify-icon icon="solar:shield-check-bold-duotone"></iconify-icon></div>
+                <div class="feat-icon fi-g"><i class="plain-icon fa-solid fa-shield-halved"></i></div>
                 <div class="feat-title">Secure &amp; Role-Based</div>
                 <div class="feat-desc">SHA-256 encrypted passwords, session management, and completely separate dashboards for admins and students.</div>
             </div>
             <div class="feat-card reveal">
-                <div class="feat-icon fi-c"><iconify-icon icon="solar:widget-5-bold-duotone"></iconify-icon></div>
+                <div class="feat-icon fi-c"><i class="plain-icon fa-solid fa-table-cells-large"></i></div>
                 <div class="feat-title">Admin Dashboard</div>
                 <div class="feat-desc">Full event management, student approvals, participant lists, and live enrollment analytics in one place.</div>
             </div>
             <div class="feat-card reveal">
-                <div class="feat-icon fi-v"><iconify-icon icon="solar:magnifer-bold-duotone"></iconify-icon></div>
+                <div class="feat-icon fi-v"><i class="plain-icon fa-solid fa-magnifying-glass"></i></div>
                 <div class="feat-title">Smart Search</div>
                 <div class="feat-desc">Find events instantly with keyword search and category filters. Never miss what matters to you.</div>
             </div>
             <div class="feat-card reveal">
-                <div class="feat-icon fi-g"><iconify-icon icon="solar:user-id-bold-duotone"></iconify-icon></div>
+                <div class="feat-icon fi-g"><i class="plain-icon fa-solid fa-id-card"></i></div>
                 <div class="feat-title">Student Profiles</div>
                 <div class="feat-desc">Track your enrolled events, manage personal information, and update your password from your profile.</div>
             </div>
             <div class="feat-card reveal">
-                <div class="feat-icon fi-c"><iconify-icon icon="solar:smartphone-2-bold-duotone"></iconify-icon></div>
+                <div class="feat-icon fi-c"><i class="plain-icon fa-solid fa-mobile-screen-button"></i></div>
                 <div class="feat-title">Fully Responsive</div>
                 <div class="feat-desc">Works perfectly on every device: desktop, tablet, or phone. No app download required.</div>
             </div>
